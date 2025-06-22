@@ -53,6 +53,8 @@ Supports multiple input methods just like the original:
 
 To build the project from source, you'll need the [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) installed.
 
+### Manual Build
+
 1. **Clone the repository:**
    ```sh
    git clone https://github.com/your-repo/Unibot-gui.git
@@ -64,6 +66,54 @@ To build the project from source, you'll need the [.NET 8 SDK](https://dotnet.mi
    ```
 3. **Run the application:**
    The executable will be located in `Unibot/bin/Release/net8.0-windows/Unibot.exe`.
+
+### Automated Builds (GitHub Actions)
+
+This repository includes automated build workflows:
+
+#### 🔄 **Continuous Integration** 
+- **Triggers**: Push to `main`/`develop` branches, Pull Requests to `main`
+- **Process**: Automatically builds, tests, and uploads artifacts on every code change
+- **Artifacts**: Build outputs available for download for 30 days
+- **Status**: ![Build Status](https://github.com/your-repo/Unibot-gui/workflows/Build%20Unibot/badge.svg)
+
+#### 🚀 **Automated Releases**
+- **Triggers**: Version tags (e.g., `v1.0.0`, `v1.0.1-beta`)
+- **Process**: Creates distributable packages automatically
+- **Outputs**:
+  - `Unibot-v1.0.0-win-x64-standalone.zip` - Self-contained (no .NET required)
+  - `Unibot-v1.0.0-framework-dependent.zip` - Requires .NET 8 Runtime
+- **Features**: Automatic changelog generation, GitHub releases
+
+#### 📦 **Creating a Release**
+
+To create a new release:
+
+1. **Tag your commit:**
+   ```sh
+   git tag v1.0.0
+   git push origin v1.0.0
+   ```
+
+2. **Automatic Process:**
+   - GitHub Actions builds both standalone and framework-dependent versions
+   - Creates a GitHub release with download links
+   - Generates changelog with installation instructions
+   - Uploads artifacts for long-term storage
+
+#### 🛠️ **Build Configurations**
+
+| Build Type | Description | Requirements | Size |
+|------------|-------------|--------------|------|
+| **Standalone** | Single executable with .NET embedded | None | ~150MB |
+| **Framework-Dependent** | Requires .NET 8 Desktop Runtime | .NET 8 | ~15MB |
+
+#### 📋 **Workflow Files**
+
+- `.github/workflows/build.yml` - Continuous integration workflow
+- `.github/workflows/release.yml` - Release automation workflow
+
+Both workflows use Windows runners to ensure compatibility with WPF applications.
 
 ## Technical Implementation
 
