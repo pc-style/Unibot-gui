@@ -2,6 +2,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using System.IO;
+using System.Text.Json;
 using Unibot.Models;
 using Unibot.Core;
 
@@ -16,6 +19,15 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private bool _isRunning;
     private UnibotEngine? _engine;
     private string _currentPage = "Detection";
+    private bool _isPreviewRunning;
+    private System.Windows.Threading.DispatcherTimer? _previewTimer;
+    private ScreenCapture? _previewCapture;
+
+    // Status tracking
+    private bool _aimActive;
+    private bool _triggerActive;
+    private bool _recoilActive;
+    private bool _rapidFireActive;
 
     public MainWindow()
     {
@@ -26,8 +38,14 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         // Initialize with default values
         LoadDefaultConfiguration();
         
+        // Try to load saved configuration
+        LoadConfiguration();
+        
         // Enable window dragging
         MouseLeftButtonDown += (sender, e) => DragMove();
+        
+        // Setup real-time updates
+        SetupStatusUpdates();
     }
 
     public Configuration Configuration
@@ -203,6 +221,44 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         {
             _engine?.Dispose(); // Clean up any existing engine
             _engine = new UnibotEngine(Configuration);
+            
+            // Subscribe to engine events for real-time status updates
+            _engine.AimStateChanged += (sender, active) => 
+            {
+                Dispatcher.Invoke(() => 
+                {
+                    _aimActive = active;
+                    UpdateStatusIndicators();
+                });
+            };
+            
+            _engine.TriggerStateChanged += (sender, active) => 
+            {
+                Dispatcher.Invoke(() => 
+                {
+                    _triggerActive = active;
+                    UpdateStatusIndicators();
+                });
+            };
+            
+            _engine.RecoilStateChanged += (sender, active) => 
+            {
+                Dispatcher.Invoke(() => 
+                {
+                    _recoilActive = active;
+                    UpdateStatusIndicators();
+                });
+            };
+            
+            _engine.RapidFireStateChanged += (sender, active) => 
+            {
+                Dispatcher.Invoke(() => 
+                {
+                    _rapidFireActive = active;
+                    UpdateStatusIndicators();
+                });
+            };
+            
             _engine.Start();
             IsRunning = true;
             ShowStatusMessage("Unibot started successfully", MessageType.Success);
@@ -221,6 +277,14 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             _engine?.Dispose();
             _engine = null;
             IsRunning = false;
+            
+            // Reset status indicators
+            _aimActive = false;
+            _triggerActive = false;
+            _recoilActive = false;
+            _rapidFireActive = false;
+            UpdateStatusIndicators();
+            
             ShowStatusMessage("Unibot stopped", MessageType.Info);
         }
         catch (Exception ex)
@@ -266,10 +330,256 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
+    private void SetupStatusUpdates()
+    {
+        // Setup a timer to update status indicators every 100ms
+        var statusTimer = new System.Windows.Threading.DispatcherTimer
+        {
+            Interval = TimeSpan.FromMilliseconds(100)
+        };
+        statusTimer.Tick += (sender, e) => UpdateStatusIndicators();
+        statusTimer.Start();
+    }
+
+    private void UpdateStatusIndicators()
+    {
+        // Update aim status
+        if (AimStatusIndicator != null && AimStatusText != null)
+        {
+            if (_aimActive)
+            {
+                AimStatusIndicator.Fill = FindResource("SecondaryAccentBrush") as System.Windows.Media.Brush;
+                AimStatusText.Text = "Active";
+                AimStatusText.Foreground = FindResource("SecondaryAccentBrush") as System.Windows.Media.Brush;
+            }
+            else
+            {
+                AimStatusIndicator.Fill = FindResource("DangerAccentBrush") as System.Windows.Media.Brush;
+                AimStatusText.Text = "Inactive";
+                AimStatusText.Foreground = FindResource("DangerAccentBrush") as System.Windows.Media.Brush;
+            }
+        }
+
+        // Update recoil status
+        if (RecoilStatusIndicator != null && RecoilStatusText != null)
+        {
+            if (_recoilActive)
+            {
+                RecoilStatusIndicator.Fill = FindResource("SecondaryAccentBrush") as System.Windows.Media.Brush;
+                RecoilStatusText.Text = "Active";
+                RecoilStatusText.Foreground = FindResource("SecondaryAccentBrush") as System.Windows.Media.Brush;
+            }
+            else
+            {
+                RecoilStatusIndicator.Fill = FindResource("DangerAccentBrush") as System.Windows.Media.Brush;
+                RecoilStatusText.Text = "Inactive";
+                RecoilStatusText.Foreground = FindResource("DangerAccentBrush") as System.Windows.Media.Brush;
+            }
+        }
+
+        // Update trigger status
+        if (TriggerStatusIndicator != null && TriggerStatusText != null)
+        {
+            if (_triggerActive)
+            {
+                TriggerStatusIndicator.Fill = FindResource("SecondaryAccentBrush") as System.Windows.Media.Brush;
+                TriggerStatusText.Text = "Active";
+                TriggerStatusText.Foreground = FindResource("SecondaryAccentBrush") as System.Windows.Media.Brush;
+            }
+            else
+            {
+                TriggerStatusIndicator.Fill = FindResource("DangerAccentBrush") as System.Windows.Media.Brush;
+                TriggerStatusText.Text = "Inactive";
+                TriggerStatusText.Foreground = FindResource("DangerAccentBrush") as System.Windows.Media.Brush;
+            }
+        }
+    }
+
+    private void PreviewButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (!_isPreviewRunning)
+        {
+            StartPreview();
+        }
+        else
+        {
+            StopPreview();
+        }
+    }
+
+    private void StartPreview()
+    {
+        try
+        {
+            _previewCapture = new ScreenCapture(Configuration.Screen);
+            _previewTimer = new System.Windows.Threading.DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(1000 / 30) // 30 FPS
+            };
+            _previewTimer.Tick += PreviewTimer_Tick;
+            _previewTimer.Start();
+            
+            _isPreviewRunning = true;
+            PreviewButton.Content = "Stop Preview";
+            ShowStatusMessage("Preview started", MessageType.Success);
+        }
+        catch (Exception ex)
+        {
+            ShowStatusMessage($"Failed to start preview: {ex.Message}", MessageType.Error);
+        }
+    }
+
+    private void StopPreview()
+    {
+        _previewTimer?.Stop();
+        _previewTimer = null;
+        _previewCapture?.Dispose();
+        _previewCapture = null;
+        
+        _isPreviewRunning = false;
+        PreviewButton.Content = "Start Preview";
+        PreviewImage.Source = null;
+        ShowStatusMessage("Preview stopped", MessageType.Info);
+    }
+
+    private void PreviewTimer_Tick(object sender, EventArgs e)
+    {
+        try
+        {
+            if (_previewCapture == null) return;
+
+            // Calculate preview region
+            var screenSize = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
+            var centerX = screenSize.Width / 2;
+            var centerY = screenSize.Height / 2;
+            
+            var previewRegion = new System.Drawing.Rectangle(
+                centerX - Configuration.Screen.FovX / 2,
+                centerY - Configuration.Screen.FovY / 2,
+                Configuration.Screen.FovX,
+                Configuration.Screen.FovY
+            );
+
+            using var capturedImage = _previewCapture.CaptureRegion(previewRegion);
+            if (capturedImage != null)
+            {
+                // Convert Mat to BitmapSource for display
+                var bitmap = MatToBitmapSource(capturedImage);
+                PreviewImage.Source = bitmap;
+            }
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Preview error: {ex.Message}");
+        }
+    }
+
+    private BitmapSource MatToBitmapSource(OpenCvSharp.Mat mat)
+    {
+        // Convert OpenCV Mat to WPF BitmapSource
+        var bitmap = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
+        var bitmapData = bitmap.LockBits(
+            new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
+            System.Drawing.Imaging.ImageLockMode.ReadOnly,
+            bitmap.PixelFormat);
+
+        var bitmapSource = BitmapSource.Create(
+            bitmapData.Width, bitmapData.Height,
+            96, 96,
+            System.Windows.Media.PixelFormats.Bgr24,
+            null,
+            bitmapData.Scan0,
+            bitmapData.Stride * bitmapData.Height,
+            bitmapData.Stride);
+
+        bitmap.UnlockBits(bitmapData);
+        bitmap.Dispose();
+
+        return bitmapSource;
+    }
+
+    private void LoadConfiguration()
+    {
+        try
+        {
+            var configPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Unibot", "config.json");
+            if (File.Exists(configPath))
+            {
+                var json = File.ReadAllText(configPath);
+                var savedConfig = JsonSerializer.Deserialize<Configuration>(json);
+                if (savedConfig != null)
+                {
+                    Configuration = savedConfig;
+                    ShowStatusMessage("Configuration loaded", MessageType.Success);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            ShowStatusMessage($"Failed to load configuration: {ex.Message}", MessageType.Warning);
+        }
+    }
+
+    private void SaveConfiguration()
+    {
+        try
+        {
+            var configDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Unibot");
+            Directory.CreateDirectory(configDir);
+            
+            var configPath = Path.Combine(configDir, "config.json");
+            var json = JsonSerializer.Serialize(Configuration, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(configPath, json);
+            
+            ShowStatusMessage("Configuration saved", MessageType.Success);
+        }
+        catch (Exception ex)
+        {
+            ShowStatusMessage($"Failed to save configuration: {ex.Message}", MessageType.Error);
+        }
+    }
+
     protected override void OnClosed(EventArgs e)
     {
+        StopPreview();
         StopUnibot();
+        SaveConfiguration();
         base.OnClosed(e);
+    }
+
+    // Add hotkey support
+    protected override void OnSourceInitialized(EventArgs e)
+    {
+        base.OnSourceInitialized(e);
+        
+        // Add global hotkey handling
+        var source = System.Windows.Interop.HwndSource.FromHwnd(new System.Windows.Interop.WindowInteropHelper(this).Handle);
+        source?.AddHook(HwndHook);
+    }
+
+    private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+    {
+        const int WM_HOTKEY = 0x0312;
+        
+        if (msg == WM_HOTKEY)
+        {
+            var key = ((int)lParam >> 16) & 0xFFFF;
+            var modifier = (int)lParam & 0xFFFF;
+            
+            // Handle hotkeys
+            if (key == 0x70) // F1 - Reload config
+            {
+                LoadConfiguration();
+                handled = true;
+            }
+            else if (key == 0x73) // F4 - Exit
+            {
+                Close();
+                handled = true;
+            }
+        }
+        
+        return IntPtr.Zero;
     }
 
     private enum MessageType
