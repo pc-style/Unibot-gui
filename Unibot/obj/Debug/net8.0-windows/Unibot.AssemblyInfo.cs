@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright © 2025")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2442f1494701957037500141f822044562e89e19")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dbc64fa8e528e8c88c58ec5183411f87941625d9")]
 [assembly: System.Reflection.AssemblyProductAttribute("Unibot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Unibot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

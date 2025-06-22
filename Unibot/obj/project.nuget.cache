@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/sXG1LnJFUg=",
+  "dgSpecHash": "NHzqx9Y+O1I=",
   "success": true,
-  "projectFilePath": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj",
+  "projectFilePath": "C:\\Users\\adam0\\Unibot-gui\\Unibot\\Unibot.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\adam0\\.nuget\\packages\\controlzex\\4.4.0\\controlzex.4.4.0.nupkg.sha512",
     "C:\\Users\\adam0\\.nuget\\packages\\mahapps.metro\\2.4.9\\mahapps.metro.2.4.9.nupkg.sha512",
@@ -13,6 +13,7 @@
     "C:\\Users\\adam0\\.nuget\\packages\\modernwpfui\\0.9.6\\modernwpfui.0.9.6.nupkg.sha512",
     "C:\\Users\\adam0\\.nuget\\packages\\modernwpfui.mahapps\\0.9.5\\modernwpfui.mahapps.0.9.5.nupkg.sha512",
     "C:\\Users\\adam0\\.nuget\\packages\\opencvsharp4\\4.8.0.20230708\\opencvsharp4.4.8.0.20230708.nupkg.sha512",
+    "C:\\Users\\adam0\\.nuget\\packages\\opencvsharp4.extensions\\4.8.0.20230708\\opencvsharp4.extensions.4.8.0.20230708.nupkg.sha512",
     "C:\\Users\\adam0\\.nuget\\packages\\opencvsharp4.runtime.win\\4.8.0.20230708\\opencvsharp4.runtime.win.4.8.0.20230708.nupkg.sha512",
     "C:\\Users\\adam0\\.nuget\\packages\\runtime.linux-arm.runtime.native.system.io.ports\\8.0.0\\runtime.linux-arm.runtime.native.system.io.ports.8.0.0.nupkg.sha512",
     "C:\\Users\\adam0\\.nuget\\packages\\runtime.linux-arm64.runtime.native.system.io.ports\\8.0.0\\runtime.linux-arm64.runtime.native.system.io.ports.8.0.0.nupkg.sha512",

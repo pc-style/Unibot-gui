@@ -11,6 +11,7 @@ public static class ValueConverters
     public static readonly InvertBooleanConverter InvertBooleanConverter = new();
     public static readonly EnumToStringConverter EnumToStringConverter = new();
     public static readonly DoubleToStringConverter DoubleToStringConverter = new();
+    public static readonly EnumToVisibilityConverter EnumToVisibilityConverter = new();
 }
 
 public class SliderWidthConverter : IValueConverter
@@ -116,5 +117,24 @@ public class DoubleToStringConverter : IValueConverter
             return result;
         }
         return 0.0;
+    }
+}
+
+public class EnumToVisibilityConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is Enum enumValue && parameter is string paramString)
+        {
+            // Check if the enum value matches the parameter
+            bool isMatch = enumValue.ToString().Equals(paramString, StringComparison.OrdinalIgnoreCase);
+            return isMatch ? Visibility.Visible : Visibility.Collapsed;
+        }
+        return Visibility.Collapsed;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
     }
 }

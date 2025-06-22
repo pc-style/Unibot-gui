@@ -20,6 +20,7 @@
         <conv:InvertBooleanConverter x:Key="InvertBool" />
         <conv:EnumToStringConverter x:Key="EnumToString" />
         <conv:DoubleToStringConverter x:Key="DoubleToString" />
+        <conv:EnumToVisibilityConverter x:Key="EnumToVis" />
         
         <!-- Status Light Style -->
         <Style x:Key="StatusLightStyle" TargetType="Ellipse">
@@ -243,7 +244,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Lower.H}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Lower.H, Mode=TwoWay}" 
                                                        Minimum="0" Maximum="179" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.ColorRange.Lower.H}" Style="{StaticResource ModernValueTextStyle}" />
@@ -258,7 +259,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Lower.S}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Lower.S, Mode=TwoWay}" 
                                                        Minimum="0" Maximum="255" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.ColorRange.Lower.S}"  Style="{StaticResource ModernValueTextStyle}" />
@@ -273,7 +274,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Lower.V}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Lower.V, Mode=TwoWay}" 
                                                        Minimum="0" Maximum="255" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.ColorRange.Lower.V}"  Style="{StaticResource ModernValueTextStyle}" />
@@ -293,7 +294,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Upper.H}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Upper.H, Mode=TwoWay}" 
                                                        Minimum="0" Maximum="179" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.ColorRange.Upper.H}"  Style="{StaticResource ModernValueTextStyle}" />
@@ -308,7 +309,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Upper.S}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Upper.S, Mode=TwoWay}" 
                                                        Minimum="0" Maximum="255" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.ColorRange.Upper.S}"  Style="{StaticResource ModernValueTextStyle}" />
@@ -323,7 +324,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Upper.V}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Upper.V, Mode=TwoWay}" 
                                                        Minimum="0" Maximum="255" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.ColorRange.Upper.V}"  Style="{StaticResource ModernValueTextStyle}" />
@@ -355,7 +356,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.FovX}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.FovX, Mode=TwoWay}" 
                                                        Minimum="50" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.FovX}"  Style="{StaticResource ModernValueTextStyle}" />
@@ -370,7 +371,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.FovY}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.FovY, Mode=TwoWay}" 
                                                        Minimum="50" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.FovY}"  Style="{StaticResource ModernValueTextStyle}" />
@@ -387,7 +388,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.AimFovX}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.AimFovX, Mode=TwoWay}" 
                                                        Minimum="50" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.AimFovX}"  Style="{StaticResource ModernValueTextStyle}" />
@@ -402,7 +403,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.AimFovY}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.AimFovY, Mode=TwoWay}" 
                                                        Minimum="50" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.AimFovY}"  Style="{StaticResource ModernValueTextStyle}" />
@@ -434,7 +435,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.Fps}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.Fps, Mode=TwoWay}" 
                                                        Minimum="30" Maximum="240" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.Fps}"  Style="{StaticResource ModernValueTextStyle}" />
@@ -464,7 +465,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ResolutionX}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ResolutionX, Mode=TwoWay}" 
                                                        Minimum="800" Maximum="3840" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.ResolutionX}"  Style="{StaticResource ModernValueTextStyle}" />
@@ -479,7 +480,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ResolutionY}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ResolutionY, Mode=TwoWay}" 
                                                        Minimum="600" Maximum="2160" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Screen.ResolutionY}"  Style="{StaticResource ModernValueTextStyle}" />
@@ -514,7 +515,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Speed}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Speed, Mode=TwoWay}" 
                                                        Minimum="0.1" Maximum="3.0" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Aim.Speed, StringFormat=F2}" Style="{StaticResource ModernValueTextStyle}" />
@@ -529,7 +530,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.YSpeed}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.YSpeed, Mode=TwoWay}" 
                                                        Minimum="0.1" Maximum="3.0" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Aim.YSpeed, StringFormat=F2}" Style="{StaticResource ModernValueTextStyle}" />
@@ -546,7 +547,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Smooth}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Smooth, Mode=TwoWay}" 
                                                        Minimum="0.0" Maximum="0.9" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Aim.Smooth, StringFormat=F2}" Style="{StaticResource ModernValueTextStyle}" />
@@ -561,7 +562,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.AimHeight}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.AimHeight, Mode=TwoWay}" 
                                                        Minimum="0.0" Maximum="1.0" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Aim.AimHeight, StringFormat=F2}" Style="{StaticResource ModernValueTextStyle}" />
@@ -585,7 +586,7 @@
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Offset}" 
+                                        <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Offset, Mode=TwoWay}" 
                                                Minimum="-200" Maximum="200" Style="{StaticResource ModernSliderStyle}" />
                                         <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                             <TextBlock Text="{Binding Configuration.Aim.Offset}" Style="{StaticResource ModernValueTextStyle}" />
@@ -605,9 +606,11 @@
                                 
                                 <StackPanel Margin="0,0,0,16">
                                     <TextBlock Text="Recoil Mode" Style="{StaticResource ModernLabelStyle}" />
-                                    <ComboBox SelectedItem="{Binding Configuration.Recoil.Mode}" Style="{StaticResource ModernComboBoxStyle}">
-                                        <ComboBoxItem Content="Move" />
-                                        <ComboBoxItem Content="Offset" />
+                                    <ComboBox SelectedValue="{Binding Configuration.Recoil.Mode, Mode=TwoWay}" 
+                                             SelectedValuePath="Tag"
+                                             Style="{StaticResource ModernComboBoxStyle}">
+                                        <ComboBoxItem Content="Move" Tag="Move" />
+                                        <ComboBoxItem Content="Offset" Tag="Offset" />
                                     </ComboBox>
                                 </StackPanel>
                             </StackPanel>
@@ -633,7 +636,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Recoil.RecoilX}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Recoil.RecoilX, Mode=TwoWay}" 
                                                        Minimum="-50.0" Maximum="50.0" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Recoil.RecoilX, StringFormat=F1}" Style="{StaticResource ModernValueTextStyle}" />
@@ -648,7 +651,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Recoil.RecoilY}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Recoil.RecoilY, Mode=TwoWay}" 
                                                        Minimum="-50.0" Maximum="50.0" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Recoil.RecoilY, StringFormat=F1}" Style="{StaticResource ModernValueTextStyle}" />
@@ -665,7 +668,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Recoil.MaxOffset}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Recoil.MaxOffset, Mode=TwoWay}" 
                                                        Minimum="10" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Recoil.MaxOffset}" Style="{StaticResource ModernValueTextStyle}" />
@@ -680,7 +683,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Recoil.Recover}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Recoil.Recover, Mode=TwoWay}" 
                                                        Minimum="0.0" Maximum="100.0" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Recoil.Recover, StringFormat=F1}" Style="{StaticResource ModernValueTextStyle}" />
@@ -715,7 +718,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Trigger.TriggerDelay}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Trigger.TriggerDelay, Mode=TwoWay}" 
                                                        Minimum="0" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Trigger.TriggerDelay}" Style="{StaticResource ModernValueTextStyle}" />
@@ -730,7 +733,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Trigger.TriggerThreshold}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Trigger.TriggerThreshold, Mode=TwoWay}" 
                                                        Minimum="1" Maximum="20" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Trigger.TriggerThreshold}" Style="{StaticResource ModernValueTextStyle}" />
@@ -747,7 +750,7 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Trigger.TriggerRandomization}" 
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Trigger.TriggerRandomization, Mode=TwoWay}" 
                                                        Minimum="0" Maximum="100" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                                     <TextBlock Text="{Binding Configuration.Trigger.TriggerRandomization}" Style="{StaticResource ModernValueTextStyle}" />
@@ -771,7 +774,7 @@
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Slider Grid.Column="0" Value="{Binding Configuration.RapidFire.TargetCps}" 
+                                        <Slider Grid.Column="0" Value="{Binding Configuration.RapidFire.TargetCps, Mode=TwoWay}" 
                                                Minimum="1" Maximum="20" Style="{StaticResource ModernSliderStyle}" />
                                         <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                             <TextBlock Text="{Binding Configuration.RapidFire.TargetCps}" Style="{StaticResource ModernValueTextStyle}" />
@@ -791,11 +794,13 @@
                                 
                                 <StackPanel Margin="0,0,0,16">
                                     <TextBlock Text="Input Method" Style="{StaticResource ModernLabelStyle}" />
-                                    <ComboBox SelectedItem="{Binding Configuration.Communication.Type}" Style="{StaticResource ModernComboBoxStyle}">
-                                        <ComboBoxItem Content="None (WinAPI)" />
-                                        <ComboBoxItem Content="Serial" />
-                                        <ComboBoxItem Content="Socket" />
-                                        <ComboBoxItem Content="Driver" />
+                                    <ComboBox SelectedValue="{Binding Configuration.Communication.Type, Mode=TwoWay}" 
+                                             SelectedValuePath="Tag"
+                                             Style="{StaticResource ModernComboBoxStyle}">
+                                        <ComboBoxItem Content="None (WinAPI)" Tag="None" />
+                                        <ComboBoxItem Content="Serial (COM Port)" Tag="Serial" />
+                                        <ComboBoxItem Content="Socket (Network)" Tag="Socket" />
+                                        <ComboBoxItem Content="Driver (Interception)" Tag="Driver" />
                                     </ComboBox>
                                 </StackPanel>
                             </StackPanel>
@@ -803,20 +808,22 @@
 
                         <!-- Serial Settings Card -->
                         <Border Style="{StaticResource ModernCardStyle}" 
-                               Visibility="{Binding Configuration.Communication.Type, Converter={StaticResource BoolToVis}}">
+                               Visibility="{Binding Configuration.Communication.Type, Converter={StaticResource EnumToVis}, ConverterParameter=Serial}">
                             <StackPanel>
                                 <TextBlock Text="Serial Communication" Style="{StaticResource ModernSectionHeaderStyle}" />
                                 
                                 <StackPanel Margin="0,0,0,16">
                                     <TextBlock Text="COM Port" Style="{StaticResource ModernLabelStyle}" />
-                                    <TextBox Text="{Binding Configuration.Communication.ComPort}" Style="{StaticResource ModernTextBoxStyle}" />
+                                    <TextBox Text="{Binding Configuration.Communication.ComPort, Mode=TwoWay}" 
+                                            Style="{StaticResource ModernTextBoxStyle}" 
+                                            ToolTip="Enter COM port (e.g., COM3, COM4)" />
                                 </StackPanel>
                             </StackPanel>
                         </Border>
 
                         <!-- Network Settings Card -->
                         <Border Style="{StaticResource ModernCardStyle}" 
-                               Visibility="{Binding Configuration.Communication.Type, Converter={StaticResource BoolToVis}}">
+                               Visibility="{Binding Configuration.Communication.Type, Converter={StaticResource EnumToVis}, ConverterParameter=Socket}">
                             <StackPanel>
                                 <TextBlock Text="Network Communication" Style="{StaticResource ModernSectionHeaderStyle}" />
                                 
@@ -829,12 +836,16 @@
                                     
                                     <StackPanel Grid.Column="0">
                                         <TextBlock Text="IP Address" Style="{StaticResource ModernLabelStyle}" />
-                                        <TextBox Text="{Binding Configuration.Communication.Ip}" Style="{StaticResource ModernTextBoxStyle}" />
+                                        <TextBox Text="{Binding Configuration.Communication.Ip, Mode=TwoWay}" 
+                                                Style="{StaticResource ModernTextBoxStyle}" 
+                                                ToolTip="Enter IP address (e.g., 192.168.1.100)" />
                                     </StackPanel>
                                     
                                     <StackPanel Grid.Column="2">
                                         <TextBlock Text="Port" Style="{StaticResource ModernLabelStyle}" />
-                                        <TextBox Text="{Binding Configuration.Communication.Port}" Style="{StaticResource ModernTextBoxStyle}" />
+                                        <TextBox Text="{Binding Configuration.Communication.Port, Mode=TwoWay}" 
+                                                Style="{StaticResource ModernTextBoxStyle}" 
+                                                ToolTip="Enter port number (e.g., 50124)" />
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -884,9 +895,11 @@
                                     <StackPanel Grid.Column="2">
                                         <StackPanel Margin="0,0,0,16">
                                             <TextBlock Text="Display Mode" Style="{StaticResource ModernLabelStyle}" />
-                                            <ComboBox SelectedItem="{Binding Configuration.Debug.DisplayMode}" Style="{StaticResource ModernComboBoxStyle}">
-                                                <ComboBoxItem Content="Game" />
-                                                <ComboBoxItem Content="Mask" />
+                                            <ComboBox SelectedValue="{Binding Configuration.Debug.DisplayMode, Mode=TwoWay}" 
+                                                     SelectedValuePath="Tag"
+                                                     Style="{StaticResource ModernComboBoxStyle}">
+                                                <ComboBoxItem Content="Game" Tag="Game" />
+                                                <ComboBoxItem Content="Mask" Tag="Mask" />
                                             </ComboBox>
                                         </StackPanel>
                                     </StackPanel>
