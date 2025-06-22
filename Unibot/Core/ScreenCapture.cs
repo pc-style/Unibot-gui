@@ -154,14 +154,18 @@ public class ScreenCapture : IDisposable
         var bitmapData = bitmap.LockBits(
             new Rectangle(0, 0, bitmap.Width, bitmap.Height),
             ImageLockMode.ReadOnly,
-            PixelFormat.Format24bppRgb);
+            bitmap.PixelFormat);
 
-        var mat = new Mat(bitmap.Height, bitmap.Width, MatType.CV_8UC3, bitmapData.Scan0);
-        var result = mat.Clone();
-        
-        bitmap.UnlockBits(bitmapData);
-        
-        return result;
+        try
+        {
+            // Create a Mat and copy the data from the bitmap
+            var mat = new Mat(bitmap.Height, bitmap.Width, MatType.CV_8UC3, bitmapData.Scan0, bitmapData.Stride);
+            return mat.Clone(); // Clone ensures the data is copied and persists
+        }
+        finally
+        {
+            bitmap.UnlockBits(bitmapData);
+        }
     }
 
     public void Dispose()

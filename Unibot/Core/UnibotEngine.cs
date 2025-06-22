@@ -309,7 +309,11 @@ public class UnibotEngine : IDisposable
     {
         if (_config.Screen.AutoDetectResolution)
         {
-            return new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            var primaryScreen = Screen.PrimaryScreen;
+            if (primaryScreen != null)
+            {
+                return new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+            }
         }
         
         return new Size(_config.Screen.ResolutionX, _config.Screen.ResolutionY);

@@ -45,6 +45,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         
         // Try to load saved configuration
         LoadConfiguration();
+
+        // Automatically start the bot in debug mode
+        StartUnibot();
         
         // Enable window dragging
         MouseLeftButtonDown += (sender, e) => DragMove();
@@ -442,8 +445,14 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         _previewCapture = null;
         
         _isPreviewRunning = false;
-        PreviewButton.Content = "Start Preview";
-        PreviewImage.Source = null;
+        if (PreviewButton != null)
+        {
+            PreviewButton.Content = "Start Preview";
+        }
+        if (PreviewImage != null)
+        {
+            PreviewImage.Source = null;
+        }
         ShowStatusMessage("Preview stopped", MessageType.Info);
     }
 

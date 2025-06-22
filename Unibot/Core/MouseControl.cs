@@ -208,10 +208,6 @@ public class MouseControl : IDisposable
             {
                 _serialPort.Write(command);
                 System.Diagnostics.Debug.WriteLine($"[Serial] Sent: {command.Trim()}");
-                
-                // Wait for response
-                var response = _serialPort.ReadLine();
-                System.Diagnostics.Debug.WriteLine($"[Serial] Response: {response}");
             }
         }
         catch (Exception ex)
@@ -229,12 +225,6 @@ public class MouseControl : IDisposable
                 var data = Encoding.UTF8.GetBytes(command);
                 _networkStream.Write(data, 0, data.Length);
                 System.Diagnostics.Debug.WriteLine($"[Socket] Sent: {command.Trim()}");
-                
-                // Wait for response
-                var buffer = new byte[4];
-                var bytesRead = _networkStream.Read(buffer, 0, buffer.Length);
-                var response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                System.Diagnostics.Debug.WriteLine($"[Socket] Response: {response}");
             }
         }
         catch (Exception ex)
