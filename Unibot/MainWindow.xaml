@@ -814,9 +814,10 @@
                                 
                                 <StackPanel Margin="0,0,0,16">
                                     <TextBlock Text="COM Port" Style="{StaticResource ModernLabelStyle}" />
-                                    <TextBox Text="{Binding Configuration.Communication.ComPort, Mode=TwoWay}" 
-                                            Style="{StaticResource ModernTextBoxStyle}" 
-                                            ToolTip="Enter COM port (e.g., COM3, COM4)" />
+                                    <ComboBox ItemsSource="{Binding AvailableComPorts}" 
+                                              SelectedItem="{Binding Configuration.Communication.ComPort, Mode=TwoWay}"
+                                              IsEnabled="{Binding Path=Configuration.Communication.Type, Converter={StaticResource EnumToVis}, ConverterParameter=Serial}"
+                                              Style="{StaticResource ModernComboBoxStyle}" />
                                 </StackPanel>
                             </StackPanel>
                         </Border>

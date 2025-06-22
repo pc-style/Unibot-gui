@@ -15,7 +15,7 @@ namespace Unibot;
 /// </summary>
 public partial class MainWindow : Window, INotifyPropertyChanged
 {
-    private Configuration _configuration;
+    private Configuration _configuration = null!;
     private bool _isRunning;
     private UnibotEngine? _engine;
     private string _currentPage = "Detection";
@@ -28,6 +28,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private bool _triggerActive;
     private bool _recoilActive;
     private bool _rapidFireActive;
+    
+    public string[] AvailableComPorts { get; private set; } = [];
 
     public MainWindow()
     {
@@ -37,6 +39,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         
         // Initialize with default values
         LoadDefaultConfiguration();
+
+        // Load available COM ports for the dropdown
+        LoadAvailableComPorts();
         
         // Try to load saved configuration
         LoadConfiguration();
@@ -442,7 +447,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         ShowStatusMessage("Preview stopped", MessageType.Info);
     }
 
-    private void PreviewTimer_Tick(object sender, EventArgs e)
+    private void PreviewTimer_Tick(object? sender, EventArgs e)
     {
         try
         {
@@ -475,27 +480,29 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     }
 
     private BitmapSource MatToBitmapSource(OpenCvSharp.Mat mat)
-    {
-        // Convert OpenCV Mat to WPF BitmapSource
-        var bitmap = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
-        var bitmapData = bitmap.LockBits(
-            new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
-            System.Drawing.Imaging.ImageLockMode.ReadOnly,
-            bitmap.PixelFormat);
+    {/
+        // Convert OpenCV Mat to WPF BitmapSource safely
+        using var bitmap = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
+        if (bitmap == null)
+        {
+            // Return a transparent 1x1 bitmap or throw an exception
+            return BitmapSource.Create(1, 1, 96, 96, System.Windows.Media.PixelFormats.Bgra32, null, new byte[4], 4);
+        }
 
-        var bitmapSource = BitmapSource.Create(
-            bitmapData.Width, bitmapData.Height,
-            96, 96,
-            System.Windows.Media.PixelFormats.Bgr24,
-            null,
-            bitmapData.Scan0,
-            bitmapData.Stride * bitmapData.Height,
-            bitmapData.Stride);
-
-        bitmap.UnlockBits(bitmapData);
-        bitmap.Dispose();
-
-        return bitmapSource;
+        using (var stream = new MemoryStream())
+        {
+            bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+            stream.Position = 0;
+            
+            var bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.StreamSource = stream;
+            bitmapImage.EndInit();
+            bitmapImage.Freeze(); // Freeze for performance and thread safety
+            
+            return bitmapImage;
+        }
     }
 
     private void LoadConfiguration()
@@ -536,6 +543,19 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         catch (Exception ex)
         {
             ShowStatusMessage($"Failed to save configuration: {ex.Message}", MessageType.Error);
+        }
+    }
+
+    private void LoadAvailableComPorts()
+    {
+        try
+        {
+            AvailableComPorts = System.IO.Ports.SerialPort.GetPortNames();
+            OnPropertyChanged(nameof(AvailableComPorts));
+        }
+        catch (Exception ex)
+        {
+            ShowStatusMessage($"Failed to load COM ports: {ex.Message}", MessageType.Warning);
         }
     }
 
