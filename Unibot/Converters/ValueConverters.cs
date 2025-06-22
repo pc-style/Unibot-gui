@@ -8,6 +8,7 @@ public static class ValueConverters
 {
     public static readonly SliderWidthConverter SliderWidthConverter = new();
     public static readonly BooleanToVisibilityConverter BooleanToVisibilityConverter = new();
+    public static readonly InvertBooleanConverter InvertBooleanConverter = new();
     public static readonly EnumToStringConverter EnumToStringConverter = new();
     public static readonly DoubleToStringConverter DoubleToStringConverter = new();
 }
@@ -55,6 +56,27 @@ public class BooleanToVisibilityConverter : IValueConverter
     }
 }
 
+public class InvertBooleanConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is bool boolValue)
+        {
+            return !boolValue;
+        }
+        return true; // Default to enabled if not a boolean
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is bool boolValue)
+        {
+            return !boolValue;
+        }
+        return false;
+    }
+}
+
 public class EnumToStringConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -72,7 +94,7 @@ public class EnumToStringConverter : IValueConverter
         {
             return Enum.Parse(targetType, stringValue);
         }
-        return Binding.DoNothing;
+        return System.Windows.Data.Binding.DoNothing;
     }
 }
 

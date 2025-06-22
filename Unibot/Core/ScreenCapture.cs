@@ -135,7 +135,9 @@ public class ScreenCapture : IDisposable
                     new OpenCvSharp.Point(centerPoint.X, centerPoint.Y - _settings.TriggerThreshold)
                 };
 
-                trigger = triggerPoints.All(point => Cv2.PointPolygonTest(closestContour, point, false) >= 0);
+                // Trigger if center point is inside the contour, or if majority of points are inside
+                var pointsInside = triggerPoints.Count(point => Cv2.PointPolygonTest(closestContour, point, false) >= 0);
+                trigger = Cv2.PointPolygonTest(closestContour, centerPoint, false) >= 0 || pointsInside >= 3;
             }
 
             return (targetPoint, trigger);

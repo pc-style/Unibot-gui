@@ -31,6 +31,12 @@ public class UnibotEngine : IDisposable
     // Key state tracking
     private readonly Dictionary<int, bool> _keyStates = new();
 
+    // Toggle state tracking
+    private bool _aimToggleState = false;
+    private bool _triggerToggleState = false;
+    private bool _recoilToggleState = false;
+    private bool _rapidFireToggleState = false;
+
     // Windows API imports for key checking
     [DllImport("user32.dll")]
     private static extern short GetAsyncKeyState(int vKey);
@@ -96,6 +102,9 @@ public class UnibotEngine : IDisposable
                     Stop();
                     break;
                 }
+
+                // Check for toggle key presses and update states
+                CheckToggleStates();
 
                 // Get current key states
                 var aimState = GetAimState();
@@ -232,24 +241,55 @@ public class UnibotEngine : IDisposable
         }
     }
 
+    private void CheckToggleStates()
+    {
+        // Check aim toggle keys
+        if (_config.KeyBinds.AimKeys.Any(key => CheckKeyPressed(key)))
+        {
+            _aimToggleState = !_aimToggleState;
+            AimStateChanged?.Invoke(this, _aimToggleState);
+        }
+
+        // Check trigger toggle key
+        if (CheckKeyPressed(_config.KeyBinds.KeyTrigger))
+        {
+            _triggerToggleState = !_triggerToggleState;
+            TriggerStateChanged?.Invoke(this, _triggerToggleState);
+        }
+
+        // Check recoil toggle key
+        if (CheckKeyPressed(_config.KeyBinds.KeyToggleRecoil))
+        {
+            _recoilToggleState = !_recoilToggleState;
+            RecoilStateChanged?.Invoke(this, _recoilToggleState);
+        }
+
+        // Check rapid fire toggle key
+        if (CheckKeyPressed(_config.KeyBinds.KeyRapidFire))
+        {
+            _rapidFireToggleState = !_rapidFireToggleState;
+            RapidFireStateChanged?.Invoke(this, _rapidFireToggleState);
+        }
+    }
+
     private bool GetAimState()
     {
-        return _config.KeyBinds.AimKeys.Any(key => (GetAsyncKeyState(key) & 0x8000) != 0);
+        return _aimToggleState;
     }
 
     private bool GetTriggerState()
     {
-        return (GetAsyncKeyState(_config.KeyBinds.KeyTrigger) & 0x8000) != 0;
+        return _triggerToggleState;
     }
 
     private bool GetRecoilState()
     {
-        return (GetAsyncKeyState(_config.KeyBinds.KeyToggleRecoil) & 0x8000) != 0;
+        return _recoilToggleState;
     }
 
     private bool GetRapidFireState()
     {
-        return (GetAsyncKeyState(_config.KeyBinds.KeyRapidFire) & 0x8000) != 0;
+        return _rapidFireToggleState;
     }
 
     private bool CheckKeyPressed(int virtualKeyCode)

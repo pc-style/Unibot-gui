@@ -4,9 +4,10 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
+
     <AssemblyTitle>Unibot</AssemblyTitle>
     <AssemblyDescription>Advanced Gaming Assistant Tool</AssemblyDescription>
     <AssemblyCompany>Unibot</AssemblyCompany>
@@ -21,12 +22,9 @@
     <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="ModernWpfUI" Version="0.9.6" />
-    <PackageReference Include="System.Windows.Forms" Version="1.0.0" />
+    <PackageReference Include="ModernWpfUI.MahApps" Version="0.9.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Assets\**" />
-    <Resource Include="Assets\**" />
-  </ItemGroup>
+
 
 </Project>

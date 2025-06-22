@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\adam0\\Documents\\projects\\Unibot-gui\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}|Unibot\\Unibot.csproj|c:\\users\\adam0\\documents\\projects\\unibot-gui\\unibot\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}|Unibot\\Unibot.csproj|solutionrelative:unibot\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\adam0\\Documents\\projects\\Unibot-gui\\Unibot\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "Unibot\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\adam0\\Documents\\projects\\Unibot-gui\\Unibot\\MainWindow.xaml",
+              "RelativeToolTip": "Unibot\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-06-22T02:58:25.328Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

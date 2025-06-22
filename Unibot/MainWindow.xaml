@@ -16,6 +16,7 @@
 
     <Window.Resources>
         <conv:BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <conv:InvertBooleanConverter x:Key="InvertBool" />
         <conv:EnumToStringConverter x:Key="EnumToString" />
         <conv:DoubleToStringConverter x:Key="DoubleToString" />
         
@@ -89,10 +90,10 @@
         </Border>
 
         <!-- Main Content Area -->
-        <ui:TabView Grid.Row="1" Margin="16" TabWidthMode="Equal">
+        <TabControl Grid.Row="1" Margin="16">
             
             <!-- Screen & Detection Tab -->
-            <ui:TabViewItem Header="Screen &amp; Detection" FontSize="13">
+            <TabItem Header="Screen &amp; Detection" FontSize="13">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="8">
                         
@@ -288,7 +289,7 @@
                                     </StackPanel>
                                     
                                     <StackPanel Grid.Column="1" Margin="8,0,0,0" 
-                                               IsEnabled="{Binding Configuration.Screen.AutoDetectResolution, Converter={StaticResource BoolToVis}}">
+                                               IsEnabled="{Binding Configuration.Screen.AutoDetectResolution, Converter={StaticResource InvertBool}}">
                                         <Grid Margin="0,0,0,8">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
@@ -318,10 +319,10 @@
                         </Border>
                     </StackPanel>
                 </ScrollViewer>
-            </ui:TabViewItem>
+                            </TabItem>
 
             <!-- Aim Settings Tab -->
-            <ui:TabViewItem Header="Aim Settings" FontSize="13">
+            <TabItem Header="Aim Settings" FontSize="13">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="8">
                         
@@ -404,10 +405,10 @@
                         </Border>
                     </StackPanel>
                 </ScrollViewer>
-            </ui:TabViewItem>
+                            </TabItem>
 
             <!-- Recoil & Trigger Tab -->
-            <ui:TabViewItem Header="Recoil &amp; Trigger" FontSize="13">
+            <TabItem Header="Recoil &amp; Trigger" FontSize="13">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="8">
                         
@@ -572,10 +573,10 @@
                         </Border>
                     </StackPanel>
                 </ScrollViewer>
-            </ui:TabViewItem>
+                            </TabItem>
 
             <!-- Communication Tab -->
-            <ui:TabViewItem Header="Communication" FontSize="13">
+            <TabItem Header="Communication" FontSize="13">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="8">
                         
@@ -654,10 +655,10 @@
                         </Border>
                     </StackPanel>
                 </ScrollViewer>
-            </ui:TabViewItem>
+                            </TabItem>
 
             <!-- Debug & Preview Tab -->
-            <ui:TabViewItem Header="Debug &amp; Preview" FontSize="13">
+            <TabItem Header="Debug &amp; Preview" FontSize="13">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="8">
                         
@@ -723,9 +724,9 @@
                         </Border>
                     </StackPanel>
                 </ScrollViewer>
-            </ui:TabViewItem>
-            
-        </ui:TabView>
+                            </TabItem>
+
+        </TabControl>
 
         <!-- Footer -->
         <Border Grid.Row="2" Background="{StaticResource CardBackgroundBrush}" 

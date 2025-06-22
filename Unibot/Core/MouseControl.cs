@@ -24,7 +24,7 @@ public class MouseControl : IDisposable
 
     // Windows API imports
     [DllImport("user32.dll")]
-    private static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
+    private static extern void mouse_event(uint dwFlags, int dx, int dy, uint dwData, UIntPtr dwExtraInfo);
 
     private const uint MOUSEEVENTF_MOVE = 0x0001;
     private const uint MOUSEEVENTF_LEFTDOWN = 0x0002;
@@ -128,7 +128,7 @@ public class MouseControl : IDisposable
             
             case CommunicationType.None:
             default:
-                mouse_event(MOUSEEVENTF_MOVE, (uint)moveX, (uint)moveY, 0, UIntPtr.Zero);
+                mouse_event(MOUSEEVENTF_MOVE, moveX, moveY, 0, UIntPtr.Zero);
                 System.Diagnostics.Debug.WriteLine($"[WinAPI] Move({moveX}, {moveY})");
                 break;
         }
