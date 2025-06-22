@@ -1,0 +1,101 @@
+name: Release Unibot
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+      - 'v*.*.*-*'
+
+jobs:
+  release:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+        
+    - name: Restore dependencies
+      run: dotnet restore Unibot.sln
+      
+    - name: Build Release
+      run: dotnet build Unibot.sln --configuration Release --no-restore
+      
+    - name: Publish Self-Contained (Windows x64)
+      run: dotnet publish Unibot/Unibot.csproj --configuration Release --runtime win-x64 --self-contained true --output ./publish/win-x64 -p:PublishSingleFile=true -p:PublishTrimmed=false
+      
+    - name: Publish Framework-Dependent
+      run: dotnet publish Unibot/Unibot.csproj --configuration Release --output ./publish/framework-dependent --no-self-contained
+      
+    - name: Create release packages
+      run: |
+        # Create self-contained package
+        Compress-Archive -Path ./publish/win-x64/* -DestinationPath Unibot-${{ github.ref_name }}-win-x64-standalone.zip
+        
+        # Create framework-dependent package  
+        Compress-Archive -Path ./publish/framework-dependent/* -DestinationPath Unibot-${{ github.ref_name }}-framework-dependent.zip
+        
+    - name: Generate changelog
+      id: changelog
+      run: |
+        $tag = "${{ github.ref_name }}"
+        $changelog = @"
+        ## 🎮 Unibot $tag
+        
+        ### ✨ Modern Gaming Assistant
+        
+        **Download Options:**
+        - **Standalone (Recommended)**: `Unibot-$tag-win-x64-standalone.zip` - No .NET installation required
+        - **Framework Dependent**: `Unibot-$tag-framework-dependent.zip` - Requires .NET 8 Desktop Runtime
+        
+        ### 🚀 Features
+        - 🎯 Advanced aim assistance with color detection
+        - ⚡ Recoil control and compensation
+        - 🎮 Triggerbot functionality
+        - 🔗 Multiple communication methods (WinAPI, Driver, Serial, Network)
+        - 🐛 Debug mode with live preview
+        - 🎨 Modern, sleek UI with dark theme
+        
+        ### 💻 System Requirements
+        - Windows 10/11 (x64)
+        - .NET 8 Desktop Runtime (for framework-dependent version)
+        - DirectX compatible graphics
+        
+        ### 📋 Installation
+        1. Download the appropriate package
+        2. Extract to desired location
+        3. Run `Unibot.exe`
+        4. Configure your settings
+        5. Start gaming! 🎮
+        
+        ---
+        **⚠️ Disclaimer**: This software is for educational and research purposes. Users are responsible for compliance with game terms of service and local laws.
+        "@
+        
+        $changelog | Out-File -FilePath changelog.md -Encoding UTF8
+        echo "changelog-file=changelog.md" >> $env:GITHUB_OUTPUT
+        
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          Unibot-${{ github.ref_name }}-win-x64-standalone.zip
+          Unibot-${{ github.ref_name }}-framework-dependent.zip
+        body_path: ${{ steps.changelog.outputs.changelog-file }}
+        draft: false
+        prerelease: ${{ contains(github.ref_name, '-') }}
+        make_latest: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Upload release artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: unibot-release-${{ github.ref_name }}
+        path: |
+          Unibot-${{ github.ref_name }}-*.zip
+        retention-days: 90

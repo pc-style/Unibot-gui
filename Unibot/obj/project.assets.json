@@ -2064,11 +2064,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\adam0\\Documents\\projects\\Unibot-gui\\Unibot\\Unibot.csproj",
+      "projectUniqueName": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj",
       "projectName": "Unibot",
-      "projectPath": "C:\\Users\\adam0\\Documents\\projects\\Unibot-gui\\Unibot\\Unibot.csproj",
+      "projectPath": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj",
       "packagesPath": "C:\\Users\\adam0\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adam0\\Documents\\projects\\Unibot-gui\\Unibot\\obj\\",
+      "outputPath": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

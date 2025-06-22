@@ -7,12 +7,13 @@
         xmlns:local="clr-namespace:Unibot"
         xmlns:conv="clr-namespace:Unibot.Converters"
         mc:Ignorable="d"
-        Title="Unibot - Advanced Gaming Assistant" 
-        Height="680" Width="920"
-        MinHeight="620" MinWidth="800"
+        Title="Unibot" 
+        Height="800" Width="1200"
+        MinHeight="700" MinWidth="1000"
         Background="{StaticResource AppBackgroundBrush}"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip">
+        ResizeMode="CanResizeWithGrip"
+        WindowStyle="SingleBorderWindow">
 
     <Window.Resources>
         <conv:BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -33,723 +34,894 @@
         </Style>
     </Window.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <Border CornerRadius="12" Background="{StaticResource AppBackgroundBrush}" 
+            BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <!-- Header -->
-        <Border Grid.Row="0" Background="{StaticResource CardBackgroundBrush}" 
-                BorderBrush="{StaticResource SeparatorBrush}" BorderThickness="0,0,0,1">
-            <Grid Height="50" Margin="16,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <!-- Sidebar Navigation -->
+            <Border Grid.Column="0" Background="{StaticResource SidebarBackgroundBrush}" 
+                    CornerRadius="12,0,0,12">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                    <!-- App Icon/Logo -->
-                    <Border Background="{StaticResource AccentBrush}" Width="32" Height="32" CornerRadius="6" Margin="0,0,12,0">
-                        <TextBlock Text="U" FontSize="18" FontWeight="Bold" Foreground="White" 
-                                  HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
-                    <StackPanel>
-                        <TextBlock Text="Unibot" FontSize="16" FontWeight="SemiBold" 
-                                  Foreground="{StaticResource TextPrimaryBrush}" />
-                        <TextBlock Text="Advanced Gaming Assistant" FontSize="11" 
-                                  Foreground="{StaticResource TextSecondaryBrush}" />
-                    </StackPanel>
-                </StackPanel>
-
-                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                    <!-- Status Indicators -->
-                    <StackPanel Orientation="Horizontal" Margin="0,0,16,0">
-                        <Ellipse Style="{StaticResource StatusLightStyle}" />
-                        <TextBlock Text="Aim" Margin="6,0,12,0" FontSize="12" 
-                                  Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" />
-                        <Ellipse Style="{StaticResource StatusLightStyle}" />
-                        <TextBlock Text="Trigger" Margin="6,0,12,0" FontSize="12" 
-                                  Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" />
-                        <Ellipse Style="{StaticResource StatusLightStyle}" />
-                        <TextBlock Text="Recoil" Margin="6,0" FontSize="12" 
-                                  Foreground="{StaticResource TextSecondaryBrush}" VerticalAlignment="Center" />
-                    </StackPanel>
-
-                    <!-- Control Buttons -->
-                    <Button x:Name="StartButton" Content="Start" Width="80" Height="32" 
-                            Background="{StaticResource AccentBrush}" Foreground="White" 
-                            BorderThickness="0" Margin="0,0,8,0" Click="StartButton_Click" />
-                    <Button x:Name="StopButton" Content="Stop" Width="80" Height="32" 
-                            Background="#FF4444" Foreground="White" 
-                            BorderThickness="0" IsEnabled="False" Click="StopButton_Click" />
-                </StackPanel>
-            </Grid>
-        </Border>
-
-        <!-- Main Content Area -->
-        <TabControl Grid.Row="1" Margin="16">
-            
-            <!-- Screen & Detection Tab -->
-            <TabItem Header="Screen &amp; Detection" FontSize="13">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="8">
-                        
-                        <!-- Color Detection -->
-                        <Border Style="{StaticResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Color Detection" Style="{StaticResource SectionHeaderStyle}" />
-                                
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    
-                                    <!-- Lower Color Range -->
-                                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                                        <TextBlock Text="Lower HSV Range" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,8" />
-                                        
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="H:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.ColorRange.Lower.H}" 
-                                                   Minimum="0" Maximum="179" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.ColorRange.Lower.H}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="S:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.ColorRange.Lower.S}" 
-                                                   Minimum="0" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.ColorRange.Lower.S}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="V:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.ColorRange.Lower.V}" 
-                                                   Minimum="0" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.ColorRange.Lower.V}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                    </StackPanel>
-                                    
-                                    <!-- Upper Color Range -->
-                                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                                        <TextBlock Text="Upper HSV Range" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,8" />
-                                        
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="H:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.ColorRange.Upper.H}" 
-                                                   Minimum="0" Maximum="179" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.ColorRange.Upper.H}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="S:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.ColorRange.Upper.S}" 
-                                                   Minimum="0" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.ColorRange.Upper.S}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="V:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.ColorRange.Upper.V}" 
-                                                   Minimum="0" Maximum="255" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.ColorRange.Upper.V}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
+                    <!-- App Header -->
+                    <StackPanel Grid.Row="0" Margin="24,32,24,32">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                            <Border Background="{StaticResource AccentGradientBrush}" 
+                                    Width="40" Height="40" CornerRadius="10" Margin="0,0,12,0">
+                                <TextBlock Text="U" FontSize="20" FontWeight="Bold" Foreground="White" 
+                                          HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                          FontFamily="{StaticResource PrimaryFontFamily}" />
+                            </Border>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="Unibot" FontSize="20" FontWeight="SemiBold" 
+                                          Foreground="{StaticResource TextPrimaryBrush}" 
+                                          FontFamily="{StaticResource PrimaryFontFamily}" />
+                                <TextBlock Text="Gaming Assistant" FontSize="12" 
+                                          Foreground="{StaticResource TextTertiaryBrush}" 
+                                          FontFamily="{StaticResource PrimaryFontFamily}" />
                             </StackPanel>
-                        </Border>
+                        </StackPanel>
 
-                        <!-- FOV Settings -->
-                        <Border Style="{StaticResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Field of View" Style="{StaticResource SectionHeaderStyle}" />
-                                
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    
-                                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="FOV X:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.FovX}" 
-                                                   Minimum="50" Maximum="500" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.FovX}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="FOV Y:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.FovY}" 
-                                                   Minimum="50" Maximum="500" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.FovY}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                    </StackPanel>
-                                    
-                                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Aim FOV X:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.AimFovX}" 
-                                                   Minimum="50" Maximum="500" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.AimFovX}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Aim FOV Y:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.AimFovY}" 
-                                                   Minimum="50" Maximum="500" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.AimFovY}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </Border>
+                        <!-- Status Overview -->
+                        <Border Background="#1F2937" CornerRadius="8" Padding="16">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                        <!-- Screen Capture Settings -->
-                        <Border Style="{StaticResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Screen Capture" Style="{StaticResource SectionHeaderStyle}" />
-                                
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    
-                                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                                        <Grid Margin="0,0,0,12">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="FPS:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.Fps}" 
-                                                   Minimum="30" Maximum="240" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.Fps}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <CheckBox Content="Auto-detect Resolution" 
-                                                 IsChecked="{Binding Configuration.Screen.AutoDetectResolution}"
-                                                 Style="{StaticResource ModernToggleStyle}" />
-                                    </StackPanel>
-                                    
-                                    <StackPanel Grid.Column="1" Margin="8,0,0,0" 
-                                               IsEnabled="{Binding Configuration.Screen.AutoDetectResolution, Converter={StaticResource InvertBool}}">
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Width:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.ResolutionX}" 
-                                                   Minimum="800" Maximum="3840" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.ResolutionX}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Height:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Screen.ResolutionY}" 
-                                                   Minimum="600" Maximum="2160" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Screen.ResolutionY}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </ScrollViewer>
-                            </TabItem>
+                                <TextBlock Grid.Row="0" Text="System Status" FontSize="13" FontWeight="Medium" 
+                                          Foreground="{StaticResource TextSecondaryBrush}" 
+                                          FontFamily="{StaticResource PrimaryFontFamily}" Margin="0,0,0,12" />
 
-            <!-- Aim Settings Tab -->
-            <TabItem Header="Aim Settings" FontSize="13">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="8">
-                        
-                        <!-- Aim Configuration -->
-                        <Border Style="{StaticResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Aim Configuration" Style="{StaticResource SectionHeaderStyle}" />
-                                
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    
-                                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Speed:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Aim.Speed}" 
-                                                   Minimum="0.1" Maximum="5.0" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Aim.Speed, Converter={StaticResource DoubleToString}}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Y Speed:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Aim.YSpeed}" 
-                                                   Minimum="0.1" Maximum="5.0" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Aim.YSpeed, Converter={StaticResource DoubleToString}}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Offset:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Aim.Offset}" 
-                                                   Minimum="-100" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Aim.Offset}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                    </StackPanel>
-                                    
-                                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Smoothing:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Aim.Smooth}" 
-                                                   Minimum="0.0" Maximum="1.0" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Aim.Smooth, Converter={StaticResource DoubleToString}}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Aim Height:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Aim.AimHeight}" 
-                                                   Minimum="0.0" Maximum="1.0" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Aim.AimHeight, Converter={StaticResource DoubleToString}}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </ScrollViewer>
-                            </TabItem>
+                                <StackPanel Grid.Row="1">
+                                    <Grid Margin="0,0,0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse Grid.Column="0" x:Name="AimStatusIndicator" Style="{StaticResource StatusIndicatorStyle}" Margin="0,0,8,0" />
+                                        <TextBlock Grid.Column="1" Text="Aim Assist" FontSize="12" 
+                                                  Foreground="{StaticResource TextSecondaryBrush}" 
+                                                  FontFamily="{StaticResource PrimaryFontFamily}" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="2" x:Name="AimStatusText" Text="Inactive" FontSize="11" 
+                                                  Foreground="{StaticResource DangerAccentBrush}" 
+                                                  FontFamily="{StaticResource MonoFontFamily}" />
+                                    </Grid>
 
-            <!-- Recoil & Trigger Tab -->
-            <TabItem Header="Recoil &amp; Trigger" FontSize="13">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="8">
-                        
-                        <!-- Recoil Settings -->
-                        <Border Style="{StaticResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Recoil Control" Style="{StaticResource SectionHeaderStyle}" />
-                                
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    
-                                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Mode:" Style="{StaticResource LabelStyle}" />
-                                            <ComboBox Grid.Column="1" SelectedItem="{Binding Configuration.Recoil.Mode}" Margin="8,0,0,0">
-                                                <ComboBoxItem Content="Move" />
-                                                <ComboBoxItem Content="Offset" />
-                                            </ComboBox>
-                                        </Grid>
-                                        
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Recoil X:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Recoil.RecoilX}" 
-                                                   Minimum="-5.0" Maximum="5.0" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Recoil.RecoilX, Converter={StaticResource DoubleToString}}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Recoil Y:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Recoil.RecoilY}" 
-                                                   Minimum="-5.0" Maximum="5.0" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Recoil.RecoilY, Converter={StaticResource DoubleToString}}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                    </StackPanel>
-                                    
-                                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Max Offset:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Recoil.MaxOffset}" 
-                                                   Minimum="0" Maximum="200" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Recoil.MaxOffset}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Recovery:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Recoil.Recover}" 
-                                                   Minimum="0.0" Maximum="5.0" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Recoil.Recover, Converter={StaticResource DoubleToString}}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </Border>
+                                    <Grid Margin="0,0,0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse Grid.Column="0" x:Name="RecoilStatusIndicator" Style="{StaticResource StatusIndicatorStyle}" Margin="0,0,8,0" />
+                                        <TextBlock Grid.Column="1" Text="Recoil Control" FontSize="12" 
+                                                  Foreground="{StaticResource TextSecondaryBrush}" 
+                                                  FontFamily="{StaticResource PrimaryFontFamily}" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="2" x:Name="RecoilStatusText" Text="Inactive" FontSize="11" 
+                                                  Foreground="{StaticResource DangerAccentBrush}" 
+                                                  FontFamily="{StaticResource MonoFontFamily}" />
+                                    </Grid>
 
-                        <!-- Trigger Settings -->
-                        <Border Style="{StaticResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Triggerbot" Style="{StaticResource SectionHeaderStyle}" />
-                                
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    
-                                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                                        <Grid Margin="0,0,0,8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Delay (ms):" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Trigger.TriggerDelay}" 
-                                                   Minimum="0" Maximum="500" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Trigger.TriggerDelay}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                        
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Randomization:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Trigger.TriggerRandomization}" 
-                                                   Minimum="0" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Trigger.TriggerRandomization}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                    </StackPanel>
-                                    
-                                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Threshold:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.Trigger.TriggerThreshold}" 
-                                                   Minimum="1" Maximum="20" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.Trigger.TriggerThreshold}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </Border>
-
-                        <!-- Rapid Fire Settings -->
-                        <Border Style="{StaticResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Rapid Fire" Style="{StaticResource SectionHeaderStyle}" />
-                                
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    
-                                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Target CPS:" Style="{StaticResource LabelStyle}" />
-                                            <Slider Grid.Column="1" Value="{Binding Configuration.RapidFire.TargetCps}" 
-                                                   Minimum="1" Maximum="20" IsSnapToTickEnabled="True" TickFrequency="1" />
-                                            <TextBlock Grid.Column="2" Text="{Binding Configuration.RapidFire.TargetCps}" Style="{StaticResource ValueLabelStyle}" />
-                                        </Grid>
-                                    </StackPanel>
-                                </Grid>
-                            </StackPanel>
-                        </Border>
-                    </StackPanel>
-                </ScrollViewer>
-                            </TabItem>
-
-            <!-- Communication Tab -->
-            <TabItem Header="Communication" FontSize="13">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="8">
-                        
-                        <!-- Communication Type -->
-                        <Border Style="{StaticResource CardStyle}">
-                            <StackPanel>
-                                <TextBlock Text="Communication Method" Style="{StaticResource SectionHeaderStyle}" />
-                                
-                                <Grid Margin="0,0,0,16">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Type:" Style="{StaticResource LabelStyle}" />
-                                    <ComboBox Grid.Column="1" SelectedItem="{Binding Configuration.Communication.Type}" Margin="8,0,0,0">
-                                        <ComboBoxItem Content="None (WinAPI)" />
-                                        <ComboBoxItem Content="Driver (Interception)" />
-                                        <ComboBoxItem Content="Serial (COM Port)" />
-                                        <ComboBoxItem Content="Socket (Network)" />
-                                    </ComboBox>
-                                </Grid>
-
-                                <!-- Serial Settings -->
-                                <StackPanel Visibility="{Binding Configuration.Communication.Type, Converter={StaticResource BoolToVis}}">
-                                    <TextBlock Text="Serial Port Configuration" FontSize="14" FontWeight="Medium" 
-                                              Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,12" />
-                                    
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="COM Port:" Style="{StaticResource LabelStyle}" />
-                                        <TextBox Grid.Column="1" Text="{Binding Configuration.Communication.ComPort}" 
-                                                Margin="8,0,0,0" Height="28" />
+                                        <Ellipse Grid.Column="0" x:Name="TriggerStatusIndicator" Style="{StaticResource StatusIndicatorStyle}" Margin="0,0,8,0" />
+                                        <TextBlock Grid.Column="1" Text="Triggerbot" FontSize="12" 
+                                                  Foreground="{StaticResource TextSecondaryBrush}" 
+                                                  FontFamily="{StaticResource PrimaryFontFamily}" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="2" x:Name="TriggerStatusText" Text="Inactive" FontSize="11" 
+                                                  Foreground="{StaticResource DangerAccentBrush}" 
+                                                  FontFamily="{StaticResource MonoFontFamily}" />
                                     </Grid>
                                 </StackPanel>
-
-                                <!-- Socket Settings -->
-                                <StackPanel Visibility="{Binding Configuration.Communication.Type, Converter={StaticResource BoolToVis}}">
-                                    <TextBlock Text="Network Configuration" FontSize="14" FontWeight="Medium" 
-                                              Foreground="{StaticResource TextSecondaryBrush}" Margin="0,16,0,12" />
-                                    
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        
-                                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                                            <Grid Margin="0,0,0,8">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock Text="IP Address:" Style="{StaticResource LabelStyle}" />
-                                                <TextBox Grid.Column="1" Text="{Binding Configuration.Communication.Ip}" 
-                                                        Margin="8,0,0,0" Height="28" />
-                                            </Grid>
-                                        </StackPanel>
-                                        
-                                        <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock Text="Port:" Style="{StaticResource LabelStyle}" />
-                                                <TextBox Grid.Column="1" Text="{Binding Configuration.Communication.Port}" 
-                                                        Margin="8,0,0,0" Height="28" />
-                                            </Grid>
-                                        </StackPanel>
-                                    </Grid>
-                                </StackPanel>
-                            </StackPanel>
+                            </Grid>
                         </Border>
                     </StackPanel>
-                </ScrollViewer>
-                            </TabItem>
 
-            <!-- Debug & Preview Tab -->
-            <TabItem Header="Debug &amp; Preview" FontSize="13">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel Margin="8">
-                        
-                        <!-- Debug Settings -->
-                        <Border Style="{StaticResource CardStyle}">
+                    <!-- Navigation Menu -->
+                    <StackPanel Grid.Row="1" Margin="16,0">
+                        <Button x:Name="DetectionNavButton" Content="● Detection" 
+                                Style="{StaticResource ActiveNavigationButtonStyle}" 
+                                Click="NavigationButton_Click" Tag="Detection" />
+                        <Button x:Name="AimNavButton" Content="● Aim Settings" 
+                                Style="{StaticResource NavigationButtonStyle}" 
+                                Click="NavigationButton_Click" Tag="Aim" />
+                        <Button x:Name="RecoilNavButton" Content="● Recoil Control" 
+                                Style="{StaticResource NavigationButtonStyle}" 
+                                Click="NavigationButton_Click" Tag="Recoil" />
+                        <Button x:Name="TriggerNavButton" Content="● Triggerbot" 
+                                Style="{StaticResource NavigationButtonStyle}" 
+                                Click="NavigationButton_Click" Tag="Trigger" />
+                        <Button x:Name="CommunicationNavButton" Content="● Communication" 
+                                Style="{StaticResource NavigationButtonStyle}" 
+                                Click="NavigationButton_Click" Tag="Communication" />
+                        <Button x:Name="DebugNavButton" Content="● Debug" 
+                                Style="{StaticResource NavigationButtonStyle}" 
+                                Click="NavigationButton_Click" Tag="Debug" />
+                    </StackPanel>
+
+                    <!-- Control Buttons -->
+                    <StackPanel Grid.Row="2" Margin="24,24,24,32">
+                        <Button x:Name="StartButton" Content="► Start Unibot" 
+                                Style="{StaticResource ModernButtonStyle}" 
+                                Height="48" Margin="0,0,0,12" 
+                                FontSize="15" Click="StartButton_Click" />
+                        <Button x:Name="StopButton" Content="■ Stop Unibot" 
+                                Style="{StaticResource ModernSecondaryButtonStyle}" 
+                                Height="40" IsEnabled="False" 
+                                FontSize="14" Click="StopButton_Click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Main Content Area -->
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Header Bar -->
+                <Border Grid.Row="0" Background="{StaticResource ContentBackgroundBrush}" 
+                        CornerRadius="0,12,0,0" BorderBrush="{StaticResource SeparatorBrush}" 
+                        BorderThickness="1,0,0,1">
+                    <Grid Height="64" Margin="32,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock x:Name="PageTitleText" Text="Detection &amp; Targeting" 
+                                      FontSize="24" FontWeight="SemiBold" 
+                                      Foreground="{StaticResource TextPrimaryBrush}" 
+                                      FontFamily="{StaticResource PrimaryFontFamily}" />
+                            <TextBlock x:Name="PageSubtitleText" Text="Configure color detection and field of view settings" 
+                                      FontSize="14" 
+                                      Foreground="{StaticResource TextSecondaryBrush}" 
+                                      FontFamily="{StaticResource PrimaryFontFamily}" />
+                        </StackPanel>
+
+                        <!-- Window Controls -->
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Content="_" Width="32" Height="32" Margin="4,0" 
+                                    Style="{StaticResource ModernSecondaryButtonStyle}" 
+                                    Click="MinimizeButton_Click" />
+                            <Button Content="[]" Width="32" Height="32" Margin="4,0" 
+                                    Style="{StaticResource ModernSecondaryButtonStyle}" 
+                                    Click="MaximizeButton_Click" />
+                            <Button Content="X" Width="32" Height="32" Margin="4,0" 
+                                    Style="{StaticResource ModernSecondaryButtonStyle}" 
+                                    Click="CloseButton_Click" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Content Panels -->
+                <Border Grid.Row="1" Background="{StaticResource ContentBackgroundBrush}" 
+                        CornerRadius="0,0,12,0">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                                  Padding="32">
+                        <StackPanel>
+                            <!-- Detection Panel -->
+                            <StackPanel x:Name="DetectionPanel" Visibility="Visible">
+                        <!-- Color Detection Card -->
+                        <Border Style="{StaticResource ModernCardStyle}">
                             <StackPanel>
-                                <TextBlock Text="Debug Options" Style="{StaticResource SectionHeaderStyle}" />
+                                <TextBlock Text="Color Detection" Style="{StaticResource ModernSectionHeaderStyle}" />
                                 
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="20" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     
-                                    <StackPanel Grid.Column="0" Margin="0,0,8,0">
-                                        <CheckBox Content="Enable Debug Display" 
-                                                 IsChecked="{Binding Configuration.Debug.Enabled}"
-                                                 Style="{StaticResource ModernToggleStyle}" Margin="0,0,0,12" />
+                                    <!-- Lower HSV Range -->
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="Lower HSV Range" Style="{StaticResource ModernLabelStyle}" />
                                         
-                                        <CheckBox Content="Always Show Preview" 
-                                                 IsChecked="{Binding Configuration.Debug.AlwaysOn}"
-                                                 Style="{StaticResource ModernToggleStyle}" />
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Hue" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Lower.H}" 
+                                                       Minimum="0" Maximum="179" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Lower.H}" Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Saturation" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Lower.S}" 
+                                                       Minimum="0" Maximum="255" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Lower.S}"  Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel>
+                                            <TextBlock Text="Value" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Lower.V}" 
+                                                       Minimum="0" Maximum="255" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Lower.V}"  Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
                                     </StackPanel>
                                     
-                                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Display Mode:" Style="{StaticResource LabelStyle}" />
-                                            <ComboBox Grid.Column="1" SelectedItem="{Binding Configuration.Debug.DisplayMode}" Margin="8,0,0,0">
-                                                <ComboBoxItem Content="Game View" />
-                                                <ComboBoxItem Content="Mask View" />
-                                            </ComboBox>
-                                        </Grid>
+                                    <!-- Upper HSV Range -->
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="Upper HSV Range" Style="{StaticResource ModernLabelStyle}" />
+                                        
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Hue" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Upper.H}" 
+                                                       Minimum="0" Maximum="179" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Upper.H}"  Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Saturation" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Upper.S}" 
+                                                       Minimum="0" Maximum="255" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Upper.S}"  Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel>
+                                            <TextBlock Text="Value" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Upper.V}" 
+                                                       Minimum="0" Maximum="255" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Upper.V}"  Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
                         </Border>
 
-                        <!-- Live Preview -->
-                        <Border Style="{StaticResource CardStyle}">
+                        <!-- Field of View Card -->
+                        <Border Style="{StaticResource ModernCardStyle}">
                             <StackPanel>
-                                <TextBlock Text="Live Preview" Style="{StaticResource SectionHeaderStyle}" />
+                                <TextBlock Text="Field of View" Style="{StaticResource ModernSectionHeaderStyle}" />
                                 
-                                <Border Background="#0A0A0A" Height="300" CornerRadius="4" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <StackPanel Grid.Column="0">
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Detection FOV X" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.FovX}" 
+                                                       Minimum="50" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.FovX}"  Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel>
+                                            <TextBlock Text="Detection FOV Y" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.FovY}" 
+                                                       Minimum="50" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.FovY}"  Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Column="2">
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Aim FOV X" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.AimFovX}" 
+                                                       Minimum="50" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.AimFovX}"  Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel>
+                                            <TextBlock Text="Aim FOV Y" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.AimFovY}" 
+                                                       Minimum="50" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.AimFovY}"  Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Screen Capture Card -->
+                        <Border Style="{StaticResource ModernCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Screen Capture" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <StackPanel Grid.Column="0">
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Capture FPS" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.Fps}" 
+                                                       Minimum="30" Maximum="240" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.Fps}"  Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="Auto-detect Resolution" Style="{StaticResource ModernLabelStyle}" />
+                                                <ToggleButton Grid.Column="1" IsChecked="{Binding Configuration.Screen.AutoDetectResolution}"
+                                                            Style="{StaticResource ModernToggleStyle}" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Column="2" 
+                                               IsEnabled="{Binding Configuration.Screen.AutoDetectResolution, Converter={StaticResource InvertBool}}">
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Screen Width" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ResolutionX}" 
+                                                       Minimum="800" Maximum="3840" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.ResolutionX}"  Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel>
+                                            <TextBlock Text="Screen Height" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ResolutionY}" 
+                                                       Minimum="600" Maximum="2160" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Screen.ResolutionY}"  Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Aim Panel -->
+                    <StackPanel x:Name="AimPanel" Visibility="Collapsed">
+                        <!-- Aim Speed & Smoothing Card -->
+                        <Border Style="{StaticResource ModernCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Aim Speed &amp; Smoothing" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <StackPanel Grid.Column="0">
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Aim Speed" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Speed}" 
+                                                       Minimum="0.1" Maximum="3.0" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Aim.Speed, StringFormat=F2}" Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel>
+                                            <TextBlock Text="Y-Axis Speed Multiplier" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.YSpeed}" 
+                                                       Minimum="0.1" Maximum="3.0" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Aim.YSpeed, StringFormat=F2}" Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Column="2">
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Smoothing" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Smooth}" 
+                                                       Minimum="0.0" Maximum="0.9" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Aim.Smooth, StringFormat=F2}" Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel>
+                                            <TextBlock Text="Aim Height Offset" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.AimHeight}" 
+                                                       Minimum="0.0" Maximum="1.0" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Aim.AimHeight, StringFormat=F2}" Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Aim Offset Card -->
+                        <Border Style="{StaticResource ModernCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Aim Offset" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                
+                                <StackPanel Margin="0,0,0,16">
+                                    <TextBlock Text="Vertical Offset (pixels)" Style="{StaticResource ModernLabelStyle}" />
                                     <Grid>
-                                        <TextBlock Text="Preview will appear here when active" 
-                                                  HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                                  Foreground="{StaticResource TextSecondaryBrush}" />
-                                        <Canvas x:Name="PreviewCanvas" />
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Offset}" 
+                                               Minimum="-200" Maximum="200" Style="{StaticResource ModernSliderStyle}" />
+                                        <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                            <TextBlock Text="{Binding Configuration.Aim.Offset}" Style="{StaticResource ModernValueTextStyle}" />
+                                        </Border>
                                     </Grid>
-                                </Border>
-                                
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12,0,0">
-                                    <Button Content="Start Preview" Width="100" Height="32" Margin="0,0,8,0" 
-                                            Background="{StaticResource AccentBrush}" Foreground="White" BorderThickness="0" />
-                                    <Button Content="Stop Preview" Width="100" Height="32" 
-                                            Background="#FF4444" Foreground="White" BorderThickness="0" />
                                 </StackPanel>
                             </StackPanel>
                         </Border>
                     </StackPanel>
-                </ScrollViewer>
-                            </TabItem>
 
-        </TabControl>
+                    <!-- Recoil Panel -->
+                    <StackPanel x:Name="RecoilPanel" Visibility="Collapsed">
+                        <!-- Recoil Mode Card -->
+                        <Border Style="{StaticResource ModernCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Recoil Control Mode" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                
+                                <StackPanel Margin="0,0,0,16">
+                                    <TextBlock Text="Recoil Mode" Style="{StaticResource ModernLabelStyle}" />
+                                    <ComboBox SelectedItem="{Binding Configuration.Recoil.Mode}" Style="{StaticResource ModernComboBoxStyle}">
+                                        <ComboBoxItem Content="Move" />
+                                        <ComboBoxItem Content="Offset" />
+                                    </ComboBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
 
-        <!-- Footer -->
-        <Border Grid.Row="2" Background="{StaticResource CardBackgroundBrush}" 
-                BorderBrush="{StaticResource SeparatorBrush}" BorderThickness="0,1,0,0">
-            <Grid Height="32" Margin="16,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                        <!-- Recoil Settings Card -->
+                        <Border Style="{StaticResource ModernCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Recoil Parameters" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <StackPanel Grid.Column="0">
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Horizontal Recoil" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Recoil.RecoilX}" 
+                                                       Minimum="-50.0" Maximum="50.0" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Recoil.RecoilX, StringFormat=F1}" Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel>
+                                            <TextBlock Text="Vertical Recoil" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Recoil.RecoilY}" 
+                                                       Minimum="-50.0" Maximum="50.0" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Recoil.RecoilY, StringFormat=F1}" Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Column="2">
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Max Offset" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Recoil.MaxOffset}" 
+                                                       Minimum="10" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Recoil.MaxOffset}" Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel>
+                                            <TextBlock Text="Recovery Rate" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Recoil.Recover}" 
+                                                       Minimum="0.0" Maximum="100.0" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Recoil.Recover, StringFormat=F1}" Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
 
-                <TextBlock Grid.Column="0" Text="Ready - Press F1 to reload config" 
-                          VerticalAlignment="Center" FontSize="12" 
-                          Foreground="{StaticResource TextSecondaryBrush}" />
+                    <!-- Trigger Panel -->
+                    <StackPanel x:Name="TriggerPanel" Visibility="Collapsed">
+                        <!-- Triggerbot Settings Card -->
+                        <Border Style="{StaticResource ModernCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Triggerbot Configuration" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <StackPanel Grid.Column="0">
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Trigger Delay (ms)" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Trigger.TriggerDelay}" 
+                                                       Minimum="0" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Trigger.TriggerDelay}" Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel>
+                                            <TextBlock Text="Trigger Threshold" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Trigger.TriggerThreshold}" 
+                                                       Minimum="1" Maximum="20" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Trigger.TriggerThreshold}" Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Column="2">
+                                        <StackPanel>
+                                            <TextBlock Text="Randomization (ms)" Style="{StaticResource ModernLabelStyle}" />
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Trigger.TriggerRandomization}" 
+                                                       Minimum="0" Maximum="100" Style="{StaticResource ModernSliderStyle}" />
+                                                <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                                    <TextBlock Text="{Binding Configuration.Trigger.TriggerRandomization}" Style="{StaticResource ModernValueTextStyle}" />
+                                                </Border>
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
 
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Button Content="Load Config" Width="80" Height="24" Margin="0,0,8,0" 
-                            Background="Transparent" BorderBrush="{StaticResource BorderBrush}" 
-                            Foreground="{StaticResource TextSecondaryBrush}" FontSize="11" />
-                    <Button Content="Save Config" Width="80" Height="24" 
-                            Background="Transparent" BorderBrush="{StaticResource BorderBrush}" 
-                            Foreground="{StaticResource TextSecondaryBrush}" FontSize="11" />
-                </StackPanel>
+                        <!-- Rapid Fire Settings Card -->
+                        <Border Style="{StaticResource ModernCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Rapid Fire Configuration" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                
+                                <StackPanel Margin="0,0,0,16">
+                                    <TextBlock Text="Target CPS (Clicks Per Second)" Style="{StaticResource ModernLabelStyle}" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Slider Grid.Column="0" Value="{Binding Configuration.RapidFire.TargetCps}" 
+                                               Minimum="1" Maximum="20" Style="{StaticResource ModernSliderStyle}" />
+                                        <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
+                                            <TextBlock Text="{Binding Configuration.RapidFire.TargetCps}" Style="{StaticResource ModernValueTextStyle}" />
+                                        </Border>
+                                    </Grid>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Communication Panel -->
+                    <StackPanel x:Name="CommunicationPanel" Visibility="Collapsed">
+                        <!-- Communication Type Card -->
+                        <Border Style="{StaticResource ModernCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Communication Method" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                
+                                <StackPanel Margin="0,0,0,16">
+                                    <TextBlock Text="Input Method" Style="{StaticResource ModernLabelStyle}" />
+                                    <ComboBox SelectedItem="{Binding Configuration.Communication.Type}" Style="{StaticResource ModernComboBoxStyle}">
+                                        <ComboBoxItem Content="None (WinAPI)" />
+                                        <ComboBoxItem Content="Serial" />
+                                        <ComboBoxItem Content="Socket" />
+                                        <ComboBoxItem Content="Driver" />
+                                    </ComboBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Serial Settings Card -->
+                        <Border Style="{StaticResource ModernCardStyle}" 
+                               Visibility="{Binding Configuration.Communication.Type, Converter={StaticResource BoolToVis}}">
+                            <StackPanel>
+                                <TextBlock Text="Serial Communication" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                
+                                <StackPanel Margin="0,0,0,16">
+                                    <TextBlock Text="COM Port" Style="{StaticResource ModernLabelStyle}" />
+                                    <TextBox Text="{Binding Configuration.Communication.ComPort}" Style="{StaticResource ModernTextBoxStyle}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Network Settings Card -->
+                        <Border Style="{StaticResource ModernCardStyle}" 
+                               Visibility="{Binding Configuration.Communication.Type, Converter={StaticResource BoolToVis}}">
+                            <StackPanel>
+                                <TextBlock Text="Network Communication" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="IP Address" Style="{StaticResource ModernLabelStyle}" />
+                                        <TextBox Text="{Binding Configuration.Communication.Ip}" Style="{StaticResource ModernTextBoxStyle}" />
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="Port" Style="{StaticResource ModernLabelStyle}" />
+                                        <TextBox Text="{Binding Configuration.Communication.Port}" Style="{StaticResource ModernTextBoxStyle}" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Debug Panel -->
+                    <StackPanel x:Name="DebugPanel" Visibility="Collapsed">
+                        <!-- Debug Settings Card -->
+                        <Border Style="{StaticResource ModernCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Debug Configuration" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <StackPanel Grid.Column="0">
+                                        <StackPanel Margin="0,0,0,16">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="Enable Debug Mode" Style="{StaticResource ModernLabelStyle}" />
+                                                <ToggleButton Grid.Column="1" IsChecked="{Binding Configuration.Debug.Enabled}"
+                                                            Style="{StaticResource ModernToggleStyle}" />
+                                            </Grid>
+                                        </StackPanel>
+                                        
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" Text="Always Show Debug" Style="{StaticResource ModernLabelStyle}" />
+                                                <ToggleButton Grid.Column="1" IsChecked="{Binding Configuration.Debug.AlwaysOn}"
+                                                            Style="{StaticResource ModernToggleStyle}" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Column="2">
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="Display Mode" Style="{StaticResource ModernLabelStyle}" />
+                                            <ComboBox SelectedItem="{Binding Configuration.Debug.DisplayMode}" Style="{StaticResource ModernComboBoxStyle}">
+                                                <ComboBoxItem Content="Game" />
+                                                <ComboBoxItem Content="Mask" />
+                                            </ComboBox>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Live Preview Card -->
+                        <Border Style="{StaticResource ModernCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Live Preview" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Button Grid.Column="0" x:Name="PreviewButton" Content="Start Preview" 
+                                           Style="{StaticResource ModernButtonStyle}" 
+                                           Width="120" Height="40" Margin="0,0,16,0"
+                                           Click="PreviewButton_Click" />
+                                           
+                                    <Border Grid.Column="1" Background="#1F2937" CornerRadius="8" 
+                                           Height="200" MinWidth="300">
+                                        <Image x:Name="PreviewImage" Stretch="Uniform" />
+                                    </Border>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
             </Grid>
-        </Border>
-    </Grid>
+        </Grid>
+    </Border>
 </Window>
