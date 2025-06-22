@@ -92,18 +92,25 @@
                 <Setter Property="Margin" Value="0,0,0,8" />
             </Style>
 
-            <!-- Modern Value Label -->
-            <Style x:Key="ModernValueStyle" TargetType="TextBlock">
+            <!-- Modern Value Label for TextBlock -->
+            <Style x:Key="ModernValueTextStyle" TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="{StaticResource MonoFontFamily}" />
                 <Setter Property="FontSize" Value="13" />
                 <Setter Property="FontWeight" Value="Medium" />
                 <Setter Property="Foreground" Value="{StaticResource PrimaryAccentBrush}" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="HorizontalAlignment" Value="Right" />
-                <Setter Property="MinWidth" Value="50" />
-                <Setter Property="Background" Value="#1F2937" />
-                <Setter Property="Padding" Value="8,4" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="TextAlignment" Value="Center" />
+            </Style>
+
+            <!-- Modern Value Border Container -->
+            <Style x:Key="ModernValueStyle" TargetType="Border">
+                <Setter Property="Background" Value="#1F2937" />
+                <Setter Property="CornerRadius" Value="6" />
+                <Setter Property="Padding" Value="8,4" />
+                <Setter Property="MinWidth" Value="50" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
             </Style>
 
             <!-- Modern Button Style -->
@@ -169,6 +176,17 @@
                 </Style.Triggers>
             </Style>
 
+            <!-- Modern Slider Thumb Template (must be defined before ModernSliderStyle) -->
+            <ControlTemplate x:Key="ModernSliderThumbTemplate" TargetType="Thumb">
+                <Ellipse Fill="{TemplateBinding Background}" 
+                        Stroke="{TemplateBinding BorderBrush}"
+                        StrokeThickness="{TemplateBinding BorderThickness}">
+                    <Ellipse.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="6" ShadowDepth="1" Opacity="0.3" />
+                    </Ellipse.Effect>
+                </Ellipse>
+            </ControlTemplate>
+
             <!-- Modern Slider Style -->
             <Style x:Key="ModernSliderStyle" TargetType="Slider">
                 <Setter Property="Height" Value="6" />
@@ -189,17 +207,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-            <!-- Modern Slider Thumb -->
-            <ControlTemplate x:Key="ModernSliderThumbTemplate" TargetType="Thumb">
-                <Ellipse Fill="{TemplateBinding Background}" 
-                        Stroke="{TemplateBinding BorderBrush}"
-                        StrokeThickness="{TemplateBinding BorderThickness}">
-                    <Ellipse.Effect>
-                        <DropShadowEffect Color="Black" BlurRadius="6" ShadowDepth="1" Opacity="0.3" />
-                    </Ellipse.Effect>
-                </Ellipse>
-            </ControlTemplate>
 
             <!-- Modern Toggle Switch -->
             <Style x:Key="ModernToggleStyle" TargetType="ToggleButton">

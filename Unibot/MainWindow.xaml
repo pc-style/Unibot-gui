@@ -13,8 +13,7 @@
         Background="{StaticResource AppBackgroundBrush}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
-        WindowStyle="None"
-        AllowsTransparency="True">
+        WindowStyle="SingleBorderWindow">
 
     <Window.Resources>
         <conv:BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -247,7 +246,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Lower.H}" 
                                                        Minimum="0" Maximum="179" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Lower.H}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Lower.H}" Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -262,7 +261,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Lower.S}" 
                                                        Minimum="0" Maximum="255" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Lower.S}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Lower.S}"  Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -277,7 +276,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Lower.V}" 
                                                        Minimum="0" Maximum="255" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Lower.V}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Lower.V}"  Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -297,7 +296,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Upper.H}" 
                                                        Minimum="0" Maximum="179" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Upper.H}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Upper.H}"  Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -312,7 +311,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Upper.S}" 
                                                        Minimum="0" Maximum="255" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Upper.S}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Upper.S}"  Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -327,7 +326,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ColorRange.Upper.V}" 
                                                        Minimum="0" Maximum="255" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Upper.V}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.ColorRange.Upper.V}"  Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -359,7 +358,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.FovX}" 
                                                        Minimum="50" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.FovX}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.FovX}"  Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -374,7 +373,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.FovY}" 
                                                        Minimum="50" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.FovY}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.FovY}"  Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -391,7 +390,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.AimFovX}" 
                                                        Minimum="50" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.AimFovX}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.AimFovX}"  Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -406,7 +405,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.AimFovY}" 
                                                        Minimum="50" Maximum="500" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.AimFovY}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.AimFovY}"  Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -438,7 +437,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.Fps}" 
                                                        Minimum="30" Maximum="240" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.Fps}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.Fps}"  Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -468,7 +467,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ResolutionX}" 
                                                        Minimum="800" Maximum="3840" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.ResolutionX}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.ResolutionX}"  Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -483,7 +482,7 @@
                                                 <Slider Grid.Column="0" Value="{Binding Configuration.Screen.ResolutionY}" 
                                                        Minimum="600" Maximum="2160" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Screen.ResolutionY}" />
+                                                    <TextBlock Text="{Binding Configuration.Screen.ResolutionY}"  Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
