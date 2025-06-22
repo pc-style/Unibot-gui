@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/workspace/Unibot/Unibot.csproj": {}
+    "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj": {}
   },
   "projects": {
-    "/workspace/Unibot/Unibot.csproj": {
+    "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspace/Unibot/Unibot.csproj",
+        "projectUniqueName": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj",
         "projectName": "Unibot",
-        "projectPath": "/workspace/Unibot/Unibot.csproj",
-        "packagesPath": "/home/ubuntu/.nuget/packages/",
-        "outputPath": "/workspace/Unibot/obj/",
+        "projectPath": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj",
+        "packagesPath": "C:\\Users\\adam0\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/ubuntu/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\adam0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0-windows"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,7 +43,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0-windows7.0": {
@@ -83,12 +90,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[8.0.17, 8.0.17]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -97,7 +98,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/ubuntu/.dotnet/sdk/8.0.411/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

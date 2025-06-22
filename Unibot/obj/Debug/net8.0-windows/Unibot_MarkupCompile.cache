@@ -1,20 +1,20 @@
 ﻿Unibot
-
+1.0.0.0
 
 winexe
 C#
 .cs
-/workspace/Unibot/obj/Debug/net8.0-windows/
+c:\Users\adam0\Unibot-gui-1\Unibot\obj\Debug\net8.0-windows\
 Unibot
 none
 false
-TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-/workspace/Unibot/App.xaml
+TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
+c:\Users\adam0\Unibot-gui-1\Unibot\App.xaml
 11407045341
 
-8-1701034170
-215-1489296888
+10-1863542929
+215-1000044322
 MainWindow.xaml;
 
-False
+True
 
