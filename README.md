@@ -49,6 +49,22 @@ Supports multiple input methods just like the original:
 - **Hot-reload Configuration** - F1 to reload settings without restart
 - **Multi-threaded Processing** - Smooth 60+ FPS operation
 
+## Building from Source
+
+To build the project from source, you'll need the [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) installed.
+
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/your-repo/Unibot-gui.git
+   cd Unibot-gui
+   ```
+2. **Restore dependencies and build the project:**
+   ```sh
+   dotnet build --configuration Release
+   ```
+3. **Run the application:**
+   The executable will be located in `Unibot/bin/Release/net8.0-windows/Unibot.exe`.
+
 ## Technical Implementation
 
 Built with modern .NET 8 and WPF, utilizing:
