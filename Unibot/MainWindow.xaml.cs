@@ -97,7 +97,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void NavigationButton_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is Button button && button.Tag is string page)
+        if (sender is System.Windows.Controls.Button button && button.Tag is string page)
         {
             SwitchToPage(page);
         }
@@ -239,15 +239,15 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             // Update button content and styles based on state
             if (IsRunning)
             {
-                StartButton.Content = "▶ Running...";
-                StopButton.Content = "⏹ Stop Unibot";
+                StartButton.Content = "► Running...";
+                StopButton.Content = "■ Stop Unibot";
                 StopButton.Style = FindResource("ModernButtonStyle") as Style;
                 StopButton.Background = FindResource("DangerAccentBrush") as System.Windows.Media.Brush;
             }
             else
             {
-                StartButton.Content = "▶ Start Unibot";
-                StopButton.Content = "⏹ Stop Unibot";
+                StartButton.Content = "► Start Unibot";
+                StopButton.Content = "■ Stop Unibot";
                 StopButton.Style = FindResource("ModernSecondaryButtonStyle") as Style;
             }
         }

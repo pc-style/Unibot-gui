@@ -136,33 +136,33 @@
 
                     <!-- Navigation Menu -->
                     <StackPanel Grid.Row="1" Margin="16,0">
-                        <Button x:Name="DetectionNavButton" Content="🎯 Detection" 
+                        <Button x:Name="DetectionNavButton" Content="● Detection" 
                                 Style="{StaticResource ActiveNavigationButtonStyle}" 
                                 Click="NavigationButton_Click" Tag="Detection" />
-                        <Button x:Name="AimNavButton" Content="🔫 Aim Settings" 
+                        <Button x:Name="AimNavButton" Content="● Aim Settings" 
                                 Style="{StaticResource NavigationButtonStyle}" 
                                 Click="NavigationButton_Click" Tag="Aim" />
-                        <Button x:Name="RecoilNavButton" Content="⚡ Recoil Control" 
+                        <Button x:Name="RecoilNavButton" Content="● Recoil Control" 
                                 Style="{StaticResource NavigationButtonStyle}" 
                                 Click="NavigationButton_Click" Tag="Recoil" />
-                        <Button x:Name="TriggerNavButton" Content="⚪ Triggerbot" 
+                        <Button x:Name="TriggerNavButton" Content="● Triggerbot" 
                                 Style="{StaticResource NavigationButtonStyle}" 
                                 Click="NavigationButton_Click" Tag="Trigger" />
-                        <Button x:Name="CommunicationNavButton" Content="🔗 Communication" 
+                        <Button x:Name="CommunicationNavButton" Content="● Communication" 
                                 Style="{StaticResource NavigationButtonStyle}" 
                                 Click="NavigationButton_Click" Tag="Communication" />
-                        <Button x:Name="DebugNavButton" Content="🐛 Debug" 
+                        <Button x:Name="DebugNavButton" Content="● Debug" 
                                 Style="{StaticResource NavigationButtonStyle}" 
                                 Click="NavigationButton_Click" Tag="Debug" />
                     </StackPanel>
 
                     <!-- Control Buttons -->
                     <StackPanel Grid.Row="2" Margin="24,24,24,32">
-                        <Button x:Name="StartButton" Content="▶ Start Unibot" 
+                        <Button x:Name="StartButton" Content="► Start Unibot" 
                                 Style="{StaticResource ModernButtonStyle}" 
                                 Height="48" Margin="0,0,0,12" 
                                 FontSize="15" Click="StartButton_Click" />
-                        <Button x:Name="StopButton" Content="⏹ Stop Unibot" 
+                        <Button x:Name="StopButton" Content="■ Stop Unibot" 
                                 Style="{StaticResource ModernSecondaryButtonStyle}" 
                                 Height="40" IsEnabled="False" 
                                 FontSize="14" Click="StopButton_Click" />
@@ -188,7 +188,7 @@
                         </Grid.ColumnDefinitions>
 
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <TextBlock x:Name="PageTitleText" Text="Detection & Targeting" 
+                            <TextBlock x:Name="PageTitleText" Text="Detection &amp; Targeting" 
                                       FontSize="24" FontWeight="SemiBold" 
                                       Foreground="{StaticResource TextPrimaryBrush}" 
                                       FontFamily="{StaticResource PrimaryFontFamily}" />
@@ -200,13 +200,13 @@
 
                         <!-- Window Controls -->
                         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                            <Button Content="🗕" Width="32" Height="32" Margin="4,0" 
+                            <Button Content="_" Width="32" Height="32" Margin="4,0" 
                                     Style="{StaticResource ModernSecondaryButtonStyle}" 
                                     Click="MinimizeButton_Click" />
-                            <Button Content="🗗" Width="32" Height="32" Margin="4,0" 
+                            <Button Content="[]" Width="32" Height="32" Margin="4,0" 
                                     Style="{StaticResource ModernSecondaryButtonStyle}" 
                                     Click="MaximizeButton_Click" />
-                            <Button Content="✕" Width="32" Height="32" Margin="4,0" 
+                            <Button Content="X" Width="32" Height="32" Margin="4,0" 
                                     Style="{StaticResource ModernSecondaryButtonStyle}" 
                                     Click="CloseButton_Click" />
                         </StackPanel>
@@ -214,12 +214,13 @@
                 </Border>
 
                 <!-- Content Panels -->
-                <ScrollViewer Grid.Row="1" Background="{StaticResource ContentBackgroundBrush}" 
-                              VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
-                              Padding="32" CornerRadius="0,0,12,0">
-
-                    <!-- Detection Panel -->
-                    <StackPanel x:Name="DetectionPanel" Visibility="Visible">
+                <Border Grid.Row="1" Background="{StaticResource ContentBackgroundBrush}" 
+                        CornerRadius="0,0,12,0">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                                  Padding="32">
+                        <StackPanel>
+                            <!-- Detection Panel -->
+                            <StackPanel x:Name="DetectionPanel" Visibility="Visible">
                         <!-- Color Detection Card -->
                         <Border Style="{StaticResource ModernCardStyle}">
                             <StackPanel>
@@ -536,14 +537,15 @@
                     <StackPanel x:Name="DebugPanel" Visibility="Collapsed">
                         <Border Style="{StaticResource ModernCardStyle}">
                             <StackPanel>
-                                <TextBlock Text="Debug & Preview" Style="{StaticResource ModernSectionHeaderStyle}" />
+                                <TextBlock Text="Debug &amp; Preview" Style="{StaticResource ModernSectionHeaderStyle}" />
                                 <TextBlock Text="Debug settings will be implemented here..." 
                                           Foreground="{StaticResource TextSecondaryBrush}" />
                             </StackPanel>
                         </Border>
-                    </StackPanel>
-
-                </ScrollViewer>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
             </Grid>
         </Grid>
     </Border>

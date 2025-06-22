@@ -114,7 +114,6 @@
                 <Setter Property="Background" Value="{StaticResource AccentGradientBrush}" />
                 <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Padding" Value="16,8" />
-                <Setter Property="CornerRadius" Value="8" />
                 <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="Effect">
                     <Setter.Value>
@@ -126,7 +125,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}" 
-                                  CornerRadius="{TemplateBinding CornerRadius}"
+                                  CornerRadius="8"
                                   BorderBrush="{TemplateBinding BorderBrush}"
                                   BorderThickness="{TemplateBinding BorderThickness}">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" 

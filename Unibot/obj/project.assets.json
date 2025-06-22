@@ -258,12 +258,6 @@
           "lib/net5.0-windows7.0/fi-FI/ModernWpf.resources.dll": {
             "locale": "fi-FI"
           },
-          "lib/net5.0-windows7.0/fil-PH/ModernWpf.Controls.resources.dll": {
-            "locale": "fil-PH"
-          },
-          "lib/net5.0-windows7.0/fil-PH/ModernWpf.resources.dll": {
-            "locale": "fil-PH"
-          },
           "lib/net5.0-windows7.0/fr-CA/ModernWpf.Controls.resources.dll": {
             "locale": "fr-CA"
           },
@@ -2058,31 +2052,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\adam0\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/home/ubuntu/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\adam0\\Documents\\projects\\Unibot-gui\\Unibot\\Unibot.csproj",
+      "projectUniqueName": "/workspace/Unibot/Unibot.csproj",
       "projectName": "Unibot",
-      "projectPath": "C:\\Users\\adam0\\Documents\\projects\\Unibot-gui\\Unibot\\Unibot.csproj",
-      "packagesPath": "C:\\Users\\adam0\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adam0\\Documents\\projects\\Unibot-gui\\Unibot\\obj\\",
+      "projectPath": "/workspace/Unibot/Unibot.csproj",
+      "packagesPath": "/home/ubuntu/.nuget/packages/",
+      "outputPath": "/workspace/Unibot/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\adam0\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/ubuntu/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0-windows"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2100,8 +2087,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net8.0-windows7.0": {
@@ -2147,6 +2133,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[8.0.17, 8.0.17]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
@@ -2155,7 +2147,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/home/ubuntu/.dotnet/sdk/8.0.411/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
