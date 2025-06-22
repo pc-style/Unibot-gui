@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj": {}
+    "C:\\Users\\adam0\\Unibot-gui\\Unibot\\Unibot.csproj": {}
   },
   "projects": {
-    "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj": {
+    "C:\\Users\\adam0\\Unibot-gui\\Unibot\\Unibot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj",
+        "projectUniqueName": "C:\\Users\\adam0\\Unibot-gui\\Unibot\\Unibot.csproj",
         "projectName": "Unibot",
-        "projectPath": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj",
+        "projectPath": "C:\\Users\\adam0\\Unibot-gui\\Unibot\\Unibot.csproj",
         "packagesPath": "C:\\Users\\adam0\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\obj\\",
+        "outputPath": "C:\\Users\\adam0\\Unibot-gui\\Unibot\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -63,6 +63,10 @@
               "version": "[0.9.5, )"
             },
             "OpenCvSharp4": {
+              "target": "Package",
+              "version": "[4.8.0.20230708, )"
+            },
+            "OpenCvSharp4.Extensions": {
               "target": "Package",
               "version": "[4.8.0.20230708, )"
             },

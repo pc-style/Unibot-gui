@@ -73,6 +73,8 @@ public class UnibotEngine : IDisposable
         _isRunning = false;
         _cancellationTokenSource?.Cancel();
         _mainLoopTask?.Wait(5000); // Wait up to 5 seconds for graceful shutdown
+        _cancellationTokenSource?.Dispose();
+        _cancellationTokenSource = null;
         
         System.Diagnostics.Debug.WriteLine("Unibot engine stopped");
     }
@@ -115,7 +117,7 @@ public class UnibotEngine : IDisposable
                 // Process frame if needed
                 if (aimState || triggerState || (_config.Debug.Enabled && _config.Debug.AlwaysOn))
                 {
-                    await ProcessFrame(deltaTime, aimState, triggerState, recoilState, rapidFireState);
+                    ProcessFrame(deltaTime, aimState, triggerState, recoilState, rapidFireState);
                 }
 
                 // Handle rapid fire
@@ -149,7 +151,7 @@ public class UnibotEngine : IDisposable
         }
     }
 
-    private async Task ProcessFrame(double deltaTime, bool aimState, bool triggerState, bool recoilState, bool rapidFireState)
+    private void ProcessFrame(double deltaTime, bool aimState, bool triggerState, bool recoilState, bool rapidFireState)
     {
         // Calculate screen regions
         var screenSize = GetScreenSize();
@@ -307,7 +309,11 @@ public class UnibotEngine : IDisposable
     {
         if (_config.Screen.AutoDetectResolution)
         {
-            return new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            var primaryScreen = Screen.PrimaryScreen;
+            if (primaryScreen != null)
+            {
+                return new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
+            }
         }
         
         return new Size(_config.Screen.ResolutionX, _config.Screen.ResolutionY);

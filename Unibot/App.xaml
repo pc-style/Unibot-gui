@@ -176,32 +176,92 @@
                 </Style.Triggers>
             </Style>
 
-            <!-- Modern Slider Thumb Template (must be defined before ModernSliderStyle) -->
-            <ControlTemplate x:Key="ModernSliderThumbTemplate" TargetType="Thumb">
-                <Ellipse Fill="{TemplateBinding Background}" 
-                        Stroke="{TemplateBinding BorderBrush}"
-                        StrokeThickness="{TemplateBinding BorderThickness}">
-                    <Ellipse.Effect>
-                        <DropShadowEffect Color="Black" BlurRadius="6" ShadowDepth="1" Opacity="0.3" />
-                    </Ellipse.Effect>
-                </Ellipse>
-            </ControlTemplate>
-
             <!-- Modern Slider Style -->
             <Style x:Key="ModernSliderStyle" TargetType="Slider">
                 <Setter Property="Height" Value="6" />
                 <Setter Property="Margin" Value="0,8" />
+                <Setter Property="IsMoveToPointEnabled" Value="True" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Slider">
                             <Grid>
-                                <Border x:Name="TrackBackground" Background="#2D3748" Height="6" CornerRadius="3" />
-                                <Border x:Name="TrackFill" Background="{StaticResource AccentGradientBrush}" 
-                                      Height="6" CornerRadius="3" HorizontalAlignment="Left" />
-                                <Thumb x:Name="Thumb" Width="20" Height="20" 
-                                     Background="{StaticResource PrimaryAccentBrush}" 
-                                     BorderBrush="White" BorderThickness="2"
-                                     Template="{StaticResource ModernSliderThumbTemplate}" />
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                
+                                <Track Grid.Row="1" x:Name="PART_Track">
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Command="Slider.DecreaseLarge">
+                                            <RepeatButton.Style>
+                                                <Style TargetType="RepeatButton">
+                                                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                                                    <Setter Property="Background" Value="Transparent" />
+                                                    <Setter Property="Focusable" Value="false" />
+                                                    <Setter Property="IsTabStop" Value="false" />
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="RepeatButton">
+                                                                <Border Background="#2D3748" Height="6" CornerRadius="3,0,0,3">
+                                                                    <Border Background="{StaticResource AccentGradientBrush}" 
+                                                                           Height="6" CornerRadius="3,0,0,3" />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </RepeatButton.Style>
+                                        </RepeatButton>
+                                    </Track.DecreaseRepeatButton>
+                                    
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Command="Slider.IncreaseLarge">
+                                            <RepeatButton.Style>
+                                                <Style TargetType="RepeatButton">
+                                                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                                                    <Setter Property="Background" Value="Transparent" />
+                                                    <Setter Property="Focusable" Value="false" />
+                                                    <Setter Property="IsTabStop" Value="false" />
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="RepeatButton">
+                                                                <Border Background="#2D3748" Height="6" CornerRadius="0,3,3,0" />
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </RepeatButton.Style>
+                                        </RepeatButton>
+                                    </Track.IncreaseRepeatButton>
+                                    
+                                    <Track.Thumb>
+                                        <Thumb x:Name="Thumb">
+                                            <Thumb.Style>
+                                                <Style TargetType="Thumb">
+                                                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                                                    <Setter Property="Width" Value="20" />
+                                                    <Setter Property="Height" Value="20" />
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="Thumb">
+                                                                <Grid>
+                                                                    <Ellipse Fill="{StaticResource PrimaryAccentBrush}" 
+                                                                            Stroke="White" 
+                                                                            StrokeThickness="2">
+                                                                        <Ellipse.Effect>
+                                                                            <DropShadowEffect Color="Black" BlurRadius="6" ShadowDepth="1" Opacity="0.3" />
+                                                                        </Ellipse.Effect>
+                                                                    </Ellipse>
+                                                                </Grid>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Thumb.Style>
+                                        </Thumb>
+                                    </Track.Thumb>
+                                </Track>
                             </Grid>
                         </ControlTemplate>
                     </Setter.Value>
@@ -280,6 +340,105 @@
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="Padding" Value="12,8" />
                 <Setter Property="Height" Value="40" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Grid>
+                                <Border x:Name="Border"
+                                       Background="{TemplateBinding Background}"
+                                       BorderBrush="{TemplateBinding BorderBrush}"
+                                       BorderThickness="{TemplateBinding BorderThickness}"
+                                       CornerRadius="8">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="20" />
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <ContentPresenter Grid.Column="0"
+                                                        Content="{TemplateBinding SelectionBoxItem}"
+                                                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                        ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                        IsHitTestVisible="False"
+                                                        Margin="{TemplateBinding Padding}"
+                                                        VerticalAlignment="Center" />
+                                        
+                                        <Path Grid.Column="1" 
+                                             Data="M0,0 L4,4 L8,0" 
+                                             Fill="{StaticResource TextSecondaryBrush}"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center" />
+                                        
+                                        <ToggleButton Grid.ColumnSpan="2"
+                                                    x:Name="ToggleButton"
+                                                    ClickMode="Press"
+                                                    Focusable="False"
+                                                    IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    Background="Transparent"
+                                                    BorderThickness="0" />
+                                    </Grid>
+                                </Border>
+                                
+                                <Popup x:Name="Popup"
+                                      Placement="Bottom"
+                                      IsOpen="{TemplateBinding IsDropDownOpen}"
+                                      AllowsTransparency="True"
+                                      Focusable="False"
+                                      PopupAnimation="Slide">
+                                    <Grid x:Name="DropDown"
+                                         SnapsToDevicePixels="True"
+                                         MinWidth="{TemplateBinding ActualWidth}"
+                                         MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                        <Border Background="#1F2937"
+                                               BorderBrush="{StaticResource BorderBrush}"
+                                               BorderThickness="1"
+                                               CornerRadius="8"
+                                               Margin="0,4,0,0">
+                                            <ScrollViewer SnapsToDevicePixels="True">
+                                                <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                            </ScrollViewer>
+                                        </Border>
+                                    </Grid>
+                                </Popup>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource PrimaryAccentBrush}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="FontFamily" Value="{StaticResource PrimaryFontFamily}" />
+                            <Setter Property="FontSize" Value="14" />
+                            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Padding" Value="12,8" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ComboBoxItem">
+                                        <Border Background="{TemplateBinding Background}"
+                                               Padding="{TemplateBinding Padding}">
+                                            <ContentPresenter />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsHighlighted" Value="True">
+                                                <Setter Property="Background" Value="#252525" />
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource PrimaryAccentBrush}" />
+                                                <Setter Property="Foreground" Value="White" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
             <!-- Navigation Button Style -->

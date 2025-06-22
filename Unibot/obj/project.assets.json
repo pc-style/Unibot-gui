@@ -605,6 +605,23 @@
           }
         }
       },
+      "OpenCvSharp4.Extensions/4.8.0.20230708": {
+        "type": "package",
+        "dependencies": {
+          "OpenCvSharp4": "4.8.0.20230708",
+          "System.Drawing.Common": "7.0.0"
+        },
+        "compile": {
+          "lib/net6.0/OpenCvSharp.Extensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/OpenCvSharp.Extensions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "OpenCvSharp4.runtime.win/4.8.0.20230708": {
         "type": "package",
         "build": {
@@ -1677,6 +1694,25 @@
         "opencvsharp4.nuspec"
       ]
     },
+    "OpenCvSharp4.Extensions/4.8.0.20230708": {
+      "sha512": "nMX2ZFI+cAIp7q2UoaHFSzBD9xJgr/TyZ9dDOuDS0K2BNCdOYqT8TbXWIGCIXpcLZLn2seoy5r4ZlGaJsyREYg==",
+      "type": "package",
+      "path": "opencvsharp4.extensions/4.8.0.20230708",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net48/OpenCvSharp.Extensions.dll",
+        "lib/net48/OpenCvSharp.Extensions.xml",
+        "lib/net6.0/OpenCvSharp.Extensions.dll",
+        "lib/net6.0/OpenCvSharp.Extensions.xml",
+        "lib/netstandard2.0/OpenCvSharp.Extensions.dll",
+        "lib/netstandard2.0/OpenCvSharp.Extensions.xml",
+        "lib/netstandard2.1/OpenCvSharp.Extensions.dll",
+        "lib/netstandard2.1/OpenCvSharp.Extensions.xml",
+        "opencvsharp4.extensions.4.8.0.20230708.nupkg.sha512",
+        "opencvsharp4.extensions.nuspec"
+      ]
+    },
     "OpenCvSharp4.runtime.win/4.8.0.20230708": {
       "sha512": "V9zbVQXazSSoEG04nF1KEkxfY62WMQAcKAlDe7xgkNErY7WQZzEcj8dMEuHXQMaDr45jPvrJi50SQroi+w4wNw==",
       "type": "package",
@@ -2052,6 +2088,7 @@
       "ModernWpfUI >= 0.9.6",
       "ModernWpfUI.MahApps >= 0.9.5",
       "OpenCvSharp4 >= 4.8.0.20230708",
+      "OpenCvSharp4.Extensions >= 4.8.0.20230708",
       "OpenCvSharp4.runtime.win >= 4.8.0.20230708",
       "System.Drawing.Common >= 8.0.0",
       "System.IO.Ports >= 8.0.0"
@@ -2064,11 +2101,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj",
+      "projectUniqueName": "C:\\Users\\adam0\\Unibot-gui\\Unibot\\Unibot.csproj",
       "projectName": "Unibot",
-      "projectPath": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\Unibot.csproj",
+      "projectPath": "C:\\Users\\adam0\\Unibot-gui\\Unibot\\Unibot.csproj",
       "packagesPath": "C:\\Users\\adam0\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adam0\\Unibot-gui-1\\Unibot\\obj\\",
+      "outputPath": "C:\\Users\\adam0\\Unibot-gui\\Unibot\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2120,6 +2157,10 @@
             "version": "[0.9.5, )"
           },
           "OpenCvSharp4": {
+            "target": "Package",
+            "version": "[4.8.0.20230708, )"
+          },
+          "OpenCvSharp4.Extensions": {
             "target": "Package",
             "version": "[4.8.0.20230708, )"
           },
