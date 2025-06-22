@@ -499,15 +499,17 @@
                         <Border Style="{StaticResource ModernCardStyle}">
                             <StackPanel>
                                 <TextBlock Text="Aim Speed &amp; Smoothing" Style="{StaticResource ModernSectionHeaderStyle}" />
-                                
+
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="20" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    
+
+                                    <!-- Left Column -->
                                     <StackPanel Grid.Column="0">
+                                        <!-- Aim Speed -->
                                         <StackPanel Margin="0,0,0,16">
                                             <TextBlock Text="Aim Speed" Style="{StaticResource ModernLabelStyle}" />
                                             <Grid>
@@ -515,14 +517,14 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Speed, Mode=TwoWay}" 
-                                                       Minimum="0.1" Maximum="3.0" Style="{StaticResource ModernSliderStyle}" />
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Speed, Mode=TwoWay}" Minimum="0.1" Maximum="5.0" SmallChange="0.1" LargeChange="0.5" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Aim.Speed, StringFormat=F2}" Style="{StaticResource ModernValueTextStyle}" />
+                                                    <TextBlock Text="{Binding Configuration.Aim.Speed, Converter={StaticResource DoubleToString}}" Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
-                                        
+
+                                        <!-- Y-Axis Speed Multiplier -->
                                         <StackPanel>
                                             <TextBlock Text="Y-Axis Speed Multiplier" Style="{StaticResource ModernLabelStyle}" />
                                             <Grid>
@@ -530,16 +532,17 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.YSpeed, Mode=TwoWay}" 
-                                                       Minimum="0.1" Maximum="3.0" Style="{StaticResource ModernSliderStyle}" />
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.YSpeed, Mode=TwoWay}" Minimum="0.1" Maximum="2.0" SmallChange="0.1" LargeChange="0.2" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Aim.YSpeed, StringFormat=F2}" Style="{StaticResource ModernValueTextStyle}" />
+                                                    <TextBlock Text="{Binding Configuration.Aim.YSpeed, Converter={StaticResource DoubleToString}}" Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
                                     </StackPanel>
-                                    
+
+                                    <!-- Right Column -->
                                     <StackPanel Grid.Column="2">
+                                        <!-- Smoothing -->
                                         <StackPanel Margin="0,0,0,16">
                                             <TextBlock Text="Smoothing" Style="{StaticResource ModernLabelStyle}" />
                                             <Grid>
@@ -547,14 +550,14 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Smooth, Mode=TwoWay}" 
-                                                       Minimum="0.0" Maximum="0.9" Style="{StaticResource ModernSliderStyle}" />
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Smooth, Mode=TwoWay}" Minimum="0.0" Maximum="1.0" SmallChange="0.05" LargeChange="0.1" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Aim.Smooth, StringFormat=F2}" Style="{StaticResource ModernValueTextStyle}" />
+                                                    <TextBlock Text="{Binding Configuration.Aim.Smooth, Converter={StaticResource DoubleToString}}" Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
-                                        
+
+                                        <!-- Aim Height Offset -->
                                         <StackPanel>
                                             <TextBlock Text="Aim Height Offset" Style="{StaticResource ModernLabelStyle}" />
                                             <Grid>
@@ -562,10 +565,9 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.AimHeight, Mode=TwoWay}" 
-                                                       Minimum="0.0" Maximum="1.0" Style="{StaticResource ModernSliderStyle}" />
+                                                <Slider Grid.Column="0" Value="{Binding Configuration.Aim.AimHeight, Mode=TwoWay}" Minimum="0.0" Maximum="1.0" SmallChange="0.05" LargeChange="0.1" Style="{StaticResource ModernSliderStyle}" />
                                                 <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
-                                                    <TextBlock Text="{Binding Configuration.Aim.AimHeight, StringFormat=F2}" Style="{StaticResource ModernValueTextStyle}" />
+                                                    <TextBlock Text="{Binding Configuration.Aim.AimHeight, Converter={StaticResource DoubleToString}}" Style="{StaticResource ModernValueTextStyle}" />
                                                 </Border>
                                             </Grid>
                                         </StackPanel>
@@ -575,19 +577,19 @@
                         </Border>
 
                         <!-- Aim Offset Card -->
-                        <Border Style="{StaticResource ModernCardStyle}">
+                        <Border Style="{StaticResource ModernCardStyle}" Margin="0,20,0,0">
                             <StackPanel>
                                 <TextBlock Text="Aim Offset" Style="{StaticResource ModernSectionHeaderStyle}" />
                                 
-                                <StackPanel Margin="0,0,0,16">
+                                <!-- Vertical Offset -->
+                                <StackPanel>
                                     <TextBlock Text="Vertical Offset (pixels)" Style="{StaticResource ModernLabelStyle}" />
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Offset, Mode=TwoWay}" 
-                                               Minimum="-200" Maximum="200" Style="{StaticResource ModernSliderStyle}" />
+                                        <Slider Grid.Column="0" Value="{Binding Configuration.Aim.Offset, Mode=TwoWay}" Minimum="-50" Maximum="50" Style="{StaticResource ModernSliderStyle}" />
                                         <Border Grid.Column="1" Style="{StaticResource ModernValueStyle}" Margin="12,0,0,0">
                                             <TextBlock Text="{Binding Configuration.Aim.Offset}" Style="{StaticResource ModernValueTextStyle}" />
                                         </Border>

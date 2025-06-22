@@ -480,7 +480,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     }
 
     private BitmapSource MatToBitmapSource(OpenCvSharp.Mat mat)
-    {/
+    {
         // Convert OpenCV Mat to WPF BitmapSource safely
         using var bitmap = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
         if (bitmap == null)
